@@ -1,0 +1,45 @@
+// accessForm.html – pure JS for templated include
+
+const gatewayURL = "" //update
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('email-form');
+  const emailInput = document.getElementById('email-input');
+  const responseDiv = document.getElementById('response-message');
+  const button = form.querySelector('button');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    if (!email) {
+      responseDiv.textContent = "You must write your name on the chalk board.";
+      return;
+    }
+
+    // Disable to prevent double‑submit
+    button.disabled = true;
+    responseDiv.textContent = "Very well... the scribe will run it to you shortly.";
+
+    // Log the form attempt
+    google.script.run.logEvent('FormSubmitted', email, 'Gateway request');
+
+    // Send the email and handle results
+    google.script.run
+      .withSuccessHandler(function () {
+        responseDiv.textContent = "Check your email, citizen.";
+        button.disabled = false;
+      })
+      .withFailureHandler(function (error) {
+        console.error("Error sending email:", error);
+        responseDiv.textContent = "The scroll was dropped en route. Try again.";
+        button.disabled = false;
+        // Log the failure
+        google.script.run.logEvent('EmailError', email, error.toString());
+      })
+      .sendAccessEmail(email, gatewayURL); // apps script deployment
+
+    // Clear the input so they have to re‑enter if they retry
+    emailInput.value = "";
+  });
+});

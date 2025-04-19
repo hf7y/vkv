@@ -1,0 +1,1236 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"homilyMusicI",
+				"homilyMusicIV"
+			],
+			[
+				"hap",
+				"harpFormatting"
+			],
+			[
+				"voic",
+				"voiceOne"
+			],
+			[
+				"stop",
+				"stopTextSpan"
+			],
+			[
+				"trebl",
+				"treble_8"
+			],
+			[
+				"numer",
+				"numericTimeSignature"
+			],
+			[
+				"cue",
+				"cueClefUnset"
+			],
+			[
+				"te",
+				"textEndMark"
+			],
+			[
+				"m",
+				"melodyA"
+			],
+			[
+				"t",
+				"trumpetI"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"flex-",
+				"flex-wrap"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"un",
+				"unfoldToChart"
+			],
+			[
+				"unfo",
+				"unfoldToChart"
+			],
+			[
+				"unf",
+				"unfoldToChart"
+			],
+			[
+				"unfol",
+				"unfoldToChart"
+			],
+			[
+				"ms",
+				"music-property"
+			],
+			[
+				"unfold",
+				"unfoldToChart"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/Test.gs",
+			"settings":
+			{
+				"buffer_size": 1975,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "html/README.md",
+			"settings":
+			{
+				"buffer_size": 1801,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "README.md"
+			},
+			"undo_stack":
+			[
+				[
+					1,
+					1,
+					"insert",
+					{
+						"characters": "html."
+					},
+					"BQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					2,
+					5,
+					"left_delete",
+					null,
+					"BQAAAAQAAAAAAAAABAAAAAAAAAABAAAALgMAAAAAAAAAAwAAAAAAAAABAAAAbAIAAAAAAAAAAgAAAAAAAAABAAAAbQEAAAAAAAAAAQAAAAAAAAABAAAAdAAAAAAAAAAAAAAAAAAAAAABAAAAaA",
+					"AQAAAAAAAAABAAAABQAAAAAAAAAFAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					3,
+					1,
+					"insert",
+					{
+						"characters": "REEA"
+					},
+					"BAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					4,
+					2,
+					"left_delete",
+					null,
+					"AgAAAAMAAAAAAAAAAwAAAAAAAAABAAAAQQIAAAAAAAAAAgAAAAAAAAABAAAARQ",
+					"AQAAAAAAAAABAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					5,
+					1,
+					"insert",
+					{
+						"characters": "ADME.dm"
+					},
+					"BwAAAAIAAAAAAAAAAwAAAAAAAAAAAAAAAwAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAUAAAAAAAAAAAAAAAUAAAAAAAAABgAAAAAAAAAAAAAABgAAAAAAAAAHAAAAAAAAAAAAAAAHAAAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAACQAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAgAAAAAAAAACAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					2,
+					"left_delete",
+					null,
+					"AgAAAAgAAAAAAAAACAAAAAAAAAABAAAAbQcAAAAAAAAABwAAAAAAAAABAAAAZA",
+					"AQAAAAAAAAABAAAACQAAAAAAAAAJAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					1,
+					"insert",
+					{
+						"characters": "md"
+					},
+					"AgAAAAcAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAJAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAABwAAAAAAAAAHAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					9,
+					"left_delete",
+					null,
+					"CQAAAAgAAAAAAAAACAAAAAAAAAABAAAAZAcAAAAAAAAABwAAAAAAAAABAAAAbQYAAAAAAAAABgAAAAAAAAABAAAALgUAAAAAAAAABQAAAAAAAAABAAAARQQAAAAAAAAABAAAAAAAAAABAAAATQMAAAAAAAAAAwAAAAAAAAABAAAARAIAAAAAAAAAAgAAAAAAAAABAAAAQQEAAAAAAAAAAQAAAAAAAAABAAAARQAAAAAAAAAAAAAAAAAAAAABAAAAUg",
+					"AQAAAAAAAAABAAAACQAAAAAAAAAJAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"",
+					null,
+					"AQAAAAAAAAAAAAAADQQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					13,
+					1,
+					"",
+					null,
+					"AgAAAAAAAAAAAAAACQcAAAAAAAAAAAAACQcAAAAAAAAJBwAAAAAAABMEAAAjIGh0bWwvIOKAkyBVc2VyLUZhY2luZyBWaWV3cyBmb3IgVG9rZW5pemVkIEFjY2VzcyBHYXRld2F5IChUQUcpCgpUaGlzIGZvbGRlciBjb250YWlucyB0aGUgSFRNTCB0ZW1wbGF0ZXMgc2hvd24gdG8gdXNlcnMgYmFzZWQgb24gdGhlIHN0YXR1cyBvZiB0aGVpciBhY2Nlc3MgdG9rZW4uIFRoZXNlIGZpbGVzIGFyZSBzZXJ2ZWQgdXNpbmcgYEh0bWxTZXJ2aWNlLmNyZWF0ZUh0bWxPdXRwdXRGcm9tRmlsZSgpYCBpbiBgQ29kZS5nc2AuCgojIyBGaWxlcwoKIyMjIGBzdWNjZXNzLmh0bWxgClRoaXMgcGFnZSBpcyBzaG93biB0byB1c2VycyB3aG8gdmlzaXQgYSB2YWxpZCB0b2tlbml6ZWQgbGluay4gIApDdXN0b21pemUgaXQgd2l0aDoKLSBXZWxjb21lIG1lc3NhZ2UKLSBQcm9qZWN0IGJyYW5kaW5nCi0gT3B0aW9uYWwgcmVkaXJlY3QgdG8gdGhlIGFjdHVhbCBkZXN0aW5hdGlvbiBzaXRlICh2aWEgbWV0YSByZWZyZXNoIG9yIEpTKQoKKipTZXJ2ZWQgd2hlbjoqKgotIEEgbWF0Y2hpbmcgdG9rZW4gaXMgZm91bmQgaW4gdGhlIEdvb2dsZSBTaGVldC4KCi0tLQoKIyMjIGBkZW5pZWQuaHRtbGAKVGhpcyBwYWdlIGlzIHNob3duIHRvIHVzZXJzIHdobzoKLSBWaXNpdCB3aXRob3V0IGEgYD90b2tlbj0uLi5gIHBhcmFtZXRlcgotIFVzZSBhbiBpbnZhbGlkIG9yIGV4cGlyZWQgdG9rZW4KCllvdSBtYXkgd2FudCB0byBpbmNsdWRlOgotIEEgZ2VudGxlIGVycm9yIG1lc3NhZ2UKLSBDb250YWN0IGluc3RydWN0aW9ucyBmb3IgYWNjZXNzIHJlcXVlc3RzCi0gQSDigJxSZXF1ZXN0IEFjY2Vzc+KAnSBidXR0b24gaWYgeW91J3JlIGludGVncmF0aW5nIHdpdGggYSBmb3JtCgotLS0KCiMjIEhvdyB0byBVc2UgaW4gQXBwcyBTY3JpcHQKCkluIGBDb2RlLmdzYCwgdGhlc2Ugdmlld3MgYXJlIHJldHVybmVkIGxpa2Ugc286CgpgYGBqYXZhc2NyaXB0CnJldHVybiBIdG1sU2VydmljZS5jcmVhdGVIdG1sT3V0cHV0RnJvbUZpbGUoInN1Y2Nlc3MiKTsKcmV0dXJuIEh0bWxTZXJ2aWNlLmNyZWF0ZUh0bWxPdXRwdXRGcm9tRmlsZSgiZGVuaWVkIik7Cg",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAANBAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "docs/gateway-map.md",
+			"settings":
+			{
+				"buffer_size": 5170,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "gateway-map.md"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"insert",
+					{
+						"characters": "updat"
+					},
+					"BQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					1,
+					"left_delete",
+					null,
+					"AQAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAdXBkYXQ",
+					"AQAAAAAAAAABAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					8,
+					1,
+					"insert",
+					{
+						"characters": "gatea"
+					},
+					"BQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"left_delete",
+					null,
+					"AQAAAAQAAAAAAAAABAAAAAAAAAABAAAAYQ",
+					"AQAAAAAAAAABAAAABQAAAAAAAAAFAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"insert",
+					{
+						"characters": "way-map."
+					},
+					"CAAAAAQAAAAAAAAABQAAAAAAAAAAAAAABQAAAAAAAAAGAAAAAAAAAAAAAAAGAAAAAAAAAAcAAAAAAAAAAAAAAAcAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAJAAAAAAAAAAAAAAAJAAAAAAAAAAoAAAAAAAAAAAAAAAoAAAAAAAAACwAAAAAAAAAAAAAACwAAAAAAAAAMAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					11,
+					1,
+					"insert",
+					{
+						"characters": "md"
+					},
+					"AgAAAAwAAAAAAAAADQAAAAAAAAAAAAAADQAAAAAAAAAOAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAADAAAAAAAAAAMAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					16,
+					1,
+					"cut",
+					null,
+					"AQAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAZ2F0ZXdheS1tYXAubWQ",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					20,
+					1,
+					"",
+					null,
+					"AQAAAAAAAAAAAAAAMhQAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1434,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					7,
+					1,
+					"insert",
+					{
+						"characters": "\n##idea"
+					},
+					"BwAAAAcDAAAAAAAACAMAAAAAAAAAAAAACAMAAAAAAAAJAwAAAAAAAAAAAAAJAwAAAAAAAAoDAAAAAAAAAAAAAAoDAAAAAAAACwMAAAAAAAAAAAAACwMAAAAAAAAMAwAAAAAAAAAAAAAMAwAAAAAAAA0DAAAAAAAAAAAAAA0DAAAAAAAADgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAABwMAAAAAAAAHAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAAoDAAAAAAAACwMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAACgMAAAAAAAAKAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					12,
+					8,
+					"left_delete",
+					null,
+					"CAAAAA4DAAAAAAAADgMAAAAAAAABAAAAYQ0DAAAAAAAADQMAAAAAAAABAAAAZQwDAAAAAAAADAMAAAAAAAABAAAAZAsDAAAAAAAACwMAAAAAAAABAAAAaQoDAAAAAAAACgMAAAAAAAABAAAAIAkDAAAAAAAACQMAAAAAAAABAAAAIwgDAAAAAAAACAMAAAAAAAABAAAAIwcDAAAAAAAABwMAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAADwMAAAAAAAAPAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					18,
+					1,
+					"insert",
+					{
+						"characters": "\n\n##"
+					},
+					"BAAAAKYCAAAAAAAApwIAAAAAAAAAAAAApwIAAAAAAACoAgAAAAAAAAAAAACoAgAAAAAAAKkCAAAAAAAAAAAAAKkCAAAAAAAAqgIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAApgIAAAAAAACmAgAAAAAAAAAAAAAAgGFA"
+				],
+				[
+					19,
+					1,
+					"insert",
+					{
+						"characters": " idea"
+					},
+					"BQAAAKoCAAAAAAAAqwIAAAAAAAAAAAAAqwIAAAAAAACsAgAAAAAAAAAAAACsAgAAAAAAAK0CAAAAAAAAAAAAAK0CAAAAAAAArgIAAAAAAAAAAAAArgIAAAAAAACvAgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAqgIAAAAAAACqAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					20,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAK8CAAAAAAAAsAIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAArwIAAAAAAACvAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					22,
+					1,
+					"",
+					null,
+					"AQAAALACAAAAAAAA+wMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAsAIAAAAAAACwAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					23,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAPsDAAAAAAAA/AMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA+wMAAAAAAAD7AwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					26,
+					1,
+					"right_delete",
+					null,
+					"AQAAALACAAAAAAAAsAIAAAAAAAAGAAAAY2FuIEkg",
+					"AQAAAAAAAAABAAAAtgIAAAAAAACwAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					27,
+					1,
+					"left_delete",
+					null,
+					"AQAAAK8CAAAAAAAArwIAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAsAIAAAAAAACwAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					28,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAK8CAAAAAAAAsAIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAArwIAAAAAAACvAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					31,
+					1,
+					"right_delete",
+					null,
+					"AQAAACADAAAAAAAAIAMAAAAAAAABAAAAIA",
+					"AQAAAAAAAAABAAAAIAMAAAAAAAAgAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					32,
+					1,
+					"left_delete",
+					null,
+					"AQAAAB8DAAAAAAAAHwMAAAAAAAABAAAAPw",
+					"AQAAAAAAAAABAAAAIAMAAAAAAAAgAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					33,
+					1,
+					"insert",
+					{
+						"characters": "\n\n"
+					},
+					"AgAAAB8DAAAAAAAAIAMAAAAAAAAAAAAAIAMAAAAAAAAhAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAHwMAAAAAAAAfAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					35,
+					1,
+					"right_delete",
+					null,
+					"AQAAADYDAAAAAAAANgMAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAANgMAAAAAAAA2AwAAAAAAAAAAAAAAAAAA"
+				],
+				[
+					36,
+					1,
+					"insert",
+					{
+						"characters": "*"
+					},
+					"AQAAADYDAAAAAAAANwMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANgMAAAAAAAA2AwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					37,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAADcDAAAAAAAAOAMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANwMAAAAAAAA3AwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"insert",
+					{
+						"characters": "*"
+					},
+					"AQAAAG0DAAAAAAAAbgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAbQMAAAAAAABtAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					41,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAG4DAAAAAAAAbwMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAbgMAAAAAAABuAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					47,
+					1,
+					"left_delete",
+					null,
+					"AQAAALADAAAAAAAAsAMAAAAAAABIAAAAIGFueXRoaW5nIGVsc2UgaSdtIG5vdCB0aGlua2luZyBvZiB0aGF0IHdvdWpsZCBuZWVkIHRvIGJlIG1vZGlmaWVkIGhlcmU/",
+					"AQAAAAAAAAABAAAA+AMAAAAAAACwAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					55,
+					1,
+					"",
+					null,
+					"AgAAAAAAAAAAAAAAmgUAAAAAAAAAAAAAmgUAAAAAAACaBQAAAAAAABIEAAAjIFRva2VuaXplZCBBY2Nlc3MgR2F0ZXdheSAoVEFHKQoKQSBHb29nbGUgQXBwcyBTY3JpcHQgcHJvamVjdCB0aGF0IGVtYWlscyB1c2VycyBhIHNlY3VyZSBsaW5rIGNvbnRhaW5pbmcgYSB0b2tlbi4gVGhlIHRva2VuIGlzIHN0b3JlZCBpbiBhIHNoYXJlZCBHb29nbGUgU2hlZXQgYW5kIHVzZWQgdG8gZ3JhbnQgYWNjZXNzIHRvIG90aGVyIEdBUy1iYXNlZCB3ZWIgYXBwcy4KCiMjIENvbXBvbmVudHMKCi0gYHNyYy9Db2RlLmdzYDogTWFpbiByb3V0ZXIgYW5kIFVSTCBlbnRyeSBwb2ludAotIGBzcmMvdG9rZW5VdGlscy5nc2A6IFRva2VuIGNyZWF0aW9uIGFuZCBsb29rdXAKLSBgc3JjL3NoZWV0Q29uZmlnLmdzYDogU3ByZWFkc2hlZXQgY29uZmlnCi0gYHNyYy9lbWFpbFNlbmRlci5nc2A6IEVtYWlsIGdlbmVyYXRpb24KLSBgaHRtbC9gOiBQYWdlcyBzaG93biB0byB1c2VycyBiYXNlZCBvbiB0b2tlbiBzdGF0dXMKCiMjIFdvcmtmbG93CgoxLiBSdW4gYHNlbmRBY2Nlc3NFbWFpbChlbWFpbCwgdGFyZ2V0U2l0ZSlgIG1hbnVhbGx5IG9yIHZpYSB0cmlnZ2VyLgoyLiBVc2VyIHJlY2VpdmVzIG1hZ2ljIGxpbms6IGBodHRwczovL2V4YW1wbGUuY29tP3Rva2VuPVhZWmAKMy4gV2ViIGFwcCBjaGVja3MgdG9rZW4gaW4gR29vZ2xlIFNoZWV0IGFuZCBzaG93cyBhcHByb3ByaWF0ZSB2aWV3LgoKCiMjIGlkZWEKZ2VuZXJhdGUgYSBncmFwaGljYWwgZnJvbnRlbmQgZm9yIHRoaXMgcHJvamVjdCB0aGF0IHNlbmRzIGEgdG9rZW4gdG8gYW4gZW50ZXJlZCBlbWFpbCBhbmQgcmV0dXJucyBhIGZ1biBncmFwaGljCgp0aGlzIHdvdWxkIGluY2x1ZGU6IAoqIG1vZGlmeWluZyBkb0dldCB0byBzZXJ2ZSB0aGUgbmV3IGdhbWlmaWVkIGVudHJ5IHRlc3QKKiBnZW5lcmF0aW5nIHNvbWUgaHRtbCB0aGF0IHNob3dzIHRoZSBzaXRlcyBnYXRld2F5IG9wZW4gYW5kIGNsb3NlZAoKIyMgTWFudWFsIFN5bmMKCmBgYGJhc2gKIyBwdXNoIHRvIEdpdEh1YgpnaXQgYWRkIC4KZ2l0IGNvbW1pdCAtbSAiVXBkYXRlIHRva2VuIHN5c3RlbSIKZ2l0IHB1c2gK",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAASBAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "gateway-map.md",
+			"redo_stack":
+			[
+				[
+					8,
+					1,
+					"",
+					null,
+					"AgAAABMLAAAAAAAAJhYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8LAAAjIyDwn5e677iPIFRva2VuaXplZCBBY2Nlc3MgR2F0ZXdheSB2MiDigJMgUm9tYW4gQnVyZWF1Y3JhY3kgU2NlbmUKCmBgYHRleHQKICAgICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgVG9rZW5pemVkIEFjY2VzcyBHYXRld2F5ICAgICB8CiAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgKEFwcHMgU2NyaXB0IFdlYiBBcHApICAgICAgIHwKICAgICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CiAgICAgICAgICAgICAgICAgICAgICArLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKICAgICAgICAgICstLS0tLS0tLS0tLXYtLS0tLS0tLS0tLSsgICAgICAgICAgICAgKy0tLS0tLS0tLS0tLS12LS0tLS0tLS0tLS0tLSsKICAgICAgICAgIHwgICAgZG9HZXQoZSkgICAgICAgICAgIHwgICAgICAgICAgICAgfCAgICAgIHNlbmRBY2Nlc3NFbWFpbCgpICAgIHwKICAgICAgICAgIHwgLSBSb3V0ZSBieSA/dG9rZW4gICAgIHwgICAgICAgICAgICAgfCAtIEdlbmVyYXRlIHRva2VuICAgICAgICAgIHwKICAgICAgICAgIHwgLSBTZXJ2ZSB2aWV3IGJhc2VkIG9uIHwgICAgICAgICAgICAgfCAtIFN0b3JlIGluIHNoZWV0ICAgICAgICAgIHwKICAgICAgICAgIHwgICBwcmVzZW5jZS92YWxpZGl0eSAgIHwgICAgICAgICAgICAgfCAtIFNlbmQgZW1haWwgICAgICAgICAgICAgIHwKICAgICAgICAgICstLS0tLS0tLS0tLSstLS0tLS0tLS0tLSsgICAgICAgICAgICAgKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLSsKICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CiAgICAgICAgICArLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0rICAgICAgICAgICAgICAgICAgICAgICAgICAgfAogICAgICAgICAgfCAgIE5vIHRva2VuIGluIFVSTCAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKICAgICAgICAgIHYgICAgICAgICAgICAgICAgICAgICAgIHYgICAgICAgICAgICAgICAgICAgICAgICAgICB2CistLS0tLS0tLS0tLS0tLS0tLS0tLS0tKyAgICstLS0tLS0tLS0tLS0tLS0tLS0tLSsgICArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKfCAg8J+UuCBnYXRld2F5Lmh0bWwgICAgICB8ICAgfCAgc3VjY2Vzcy5odG1sICAgICAgfCAgIHwgR29vZ2xlIFNoZWV0OiAiR2F0ZXdheSIgfAp8ICAtIFBpeGVsIGJ1cmVhdSBkZXNrIHwgICB8ICDinIUgVG9rZW4gT0sgICAgICAgIHwgICB8ICBbRW1haWwsIFNpdGUsIFRva2VuLi4uXXwKfCAgLSBDaGFsa2JvYXJkIGZvcm0gICB8ICAgKy0tLS0tLS0tLS0tLS0tLS0tLS0tKyAgICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwp8ICAtIEJ1cmVhdWNyYXQgc3ByaXRlIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICDilrIKfCAgLSBEaWFsb2d1ZSBidWJibGUgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAorLS0tLS0tLS0tLSstLS0tLS0tLS0tLSsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CiAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CiAgICAgICAgICAgfCBpbmNsdWRlcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExvb2t1cAogICAgICAgICAgIHYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAogICstLS0tLS0tLS0tLS0tLS0tLS0tLS0rICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tKy0tLS0tLS0tLS0rCiAgfCDwn5S4IHZpc3VhbC5odG1sICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgfCAg8J+UuCB0b2tlblV0aWxzLmdzICAgfAogIHwgLSBDU1MgZm9yIHBpeGVsIGFydCAgfCAgICAgICAgICAgICAgICAgICAgICB8ICAtIGdlbmVyYXRlVG9rZW4oKSB8CiAgfCAtIEdhdGUsIGNoYWxrYm9hcmQgICB8ICAgICAgICAgICAgICAgICAgICAgIHwgIC0gc3RvcmVUb2tlbigpICAgIHwKICArLS0tLS0tLS0tLS0tLS0tLS0tLS0tKyAgICAgICAgICAgICAgICAgICAgICB8ICAtIGxvb2t1cFRva2VuKCkgICB8CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgLSDwn5S4IGxvZ0V2ZW50KCkgICAgfAogICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwogIHwg8J+UuCBhY2Nlc3NGb3JtLmh0bWwgICAgIHwKICB8IC0gSlMgdG8gc3VibWl0IGVtYWlsICB8CiAgfCAtICJJJ2xsIGhhdmUgdGhlICAgICAgfAogIHwgICAgc2NyaWJlIHJ1biBpdC4uLiIgIHwKICB8IC0gTG9ncyBhdHRlbXB0cyAgICAgICB8CiAgKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCgrinpUgRnV0dXJlIFBsYWNlaG9sZGVyIEVsZW1lbnRzOgrilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKLSBDZW50dXJpb24gc3ByaXRlIChncmFudHMgYWNjZXNzIHdpdGggc2Nyb2xsKQotIEFuaW1hdGVkIGdhdGUgb3Blbi9jbG9zZSAoc3VjY2Vzcy9kZW5pZWQpCi0gV3JpdGluZyBuYW1lIG9uIGNoYWxrYm9hcmQgPSB1c2VyIGlucHV0IGZpZWxkCi0gQXVkaW8gLyBhbWJpZW50IEZYOiBxdWlsbCBzY3JhdGNoLCBtdXJtdXJpbmcK4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACg",
+					"AQAAAAAAAAABAAAAEwsAAAAAAAATCwAAAAAAAAAAAAAAAPC/"
+				]
+			],
+			"settings":
+			{
+				"buffer_size": 2835,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "## 🗺️ Tokenized Access Gateway v2 – Roman Bureaucr"
+			},
+			"undo_stack":
+			[
+				[
+					2,
+					1,
+					"",
+					null,
+					"AQAAAAAAAAAAAAAAYAMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					5,
+					1,
+					"",
+					null,
+					"AgAAAAAAAAAAAAAAEwsAAAAAAAAAAAAAEwsAAAAAAAATCwAAAAAAAGcDAAAjIyDwn5e677iPIFRva2VuaXplZCBBY2Nlc3MgR2F0ZXdheSB2MiDigJMgUm9tYW4gQnVyZWF1Y3JhY3kgU2NlbmUKCmBgYHRleHQKICAgICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgVG9rZW5pemVkIEFjY2VzcyBHYXRld2F5ICAgICB8CiAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgKEFwcHMgU2NyaXB0IFdlYiBBcHApICAgICAgIHwKICAgICAgICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CiAgICAgICAgICAgICAgICAgICAgICArLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tKwogICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKICAgICAgICAgICstLS0tLS0tLS0tLXYtLS0tLS0tLS0tLSsgICAgICAgICAgICAgKy0tLS0tLS0tLS0tLS12LS0tLS0tLS0tLS0tLSsKICAgICAgICAgIHwgICAgZG9HZXQoZSkgICAgICAgICAgIHwgICAgICAgICAgICAgfCAgICAgIHNlbmRBY2Nlc3NFbWFpbCgpICAgIHwKICAgICAgICAgIHwgLSBSb3V0ZSBieSA/dG9rZW4gICAgIHwgICAgICAgICAgICAgfCAtIEdlbmVyYXRlIHRva2VuICAgICAgICAgIHwKICAgICAgICAgIHwgLSBTZXJ2ZSB2aWV3IGJhc2VkIG9uIHwgICAgICAgICAgICAgfCAtIFN0b3JlIGluIHNoZWV0ICAgICAgICAgIHwKICAgICAgICAgIHwgICBwcmVzZW5jZS92YWxpZGl0eSAgIHwgICAgICAgICAgICAgfCAtIFNlbmQgZW1haWwK",
+					"AQAAAAAAAAABAAAAAAAAAAAAAABgAwAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: lil",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Contr",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/zach/7069/index.html",
+		"/home/zach/7069/style.css",
+		"/home/zach/7069/app.js",
+		"/home/zach/inventory/style.css",
+		"/home/zach/inventory/index.html",
+		"/home/zach/Documents/Stump/Give_Up_The_Stump.ily",
+		"/home/zach/Documents/Stump/book-titling.ily",
+		"/home/zach/Documents/Stump/Global.ily",
+		"/media/zach/rootfs/home/zach/autostart.sh",
+		"/home/zach/Documents/Stump/My_Stump.ily",
+		"/home/zach/Documents/Eris/Book/Pieces/Anthem.ly",
+		"/home/zach/Documents/Project Archive/nm4p_charts/Parts/Parts.ly",
+		"/home/zach/Documents/Project Archive/nm4p_charts/Parts/part-book.ily",
+		"/home/zach/Documents/Eris/Book/Global.ly",
+		"/home/zach/Documents/Eris/Book/Pieces/BookOfFive.ly",
+		"/home/zach/Documents/Eris/Book/Parts/Clarinet.ly",
+		"/home/zach/Documents/Eris/Book of Five/BookOfFive.ly",
+		"/home/zach/Documents/Eris/Book of Five/Book of Five_Clarinet.ly",
+		"/home/zach/Documents/Eris/Book/book-titling.ily",
+		"/home/zach/Documents/Eris/Book/Pieces/Artemisia.ly",
+		"/home/zach/Documents/Eris/Artemisia/Artemisia_Clarinet.ly",
+		"/home/zach/Documents/Eris/Book/Pieces.ily",
+		"/home/zach/Documents/Eris/Anthem/Anthem_Clarinet.ly",
+		"/home/zach/Documents/Eris/Global.ly",
+		"/home/zach/Documents/Eris/Anthem/Anthem.ly",
+		"/home/zach/versipel/score.ly",
+		"/home/zach/versipel/lilymusic.ly",
+		"/home/zach/versipel/harpsichord.ly",
+		"/home/zach/versipel/flute.ly",
+		"/home/zach/versipel/clarinet-material.ly",
+		"/home/zach/versipel/remeter.ly",
+		"/home/zach/versipel/clarinet.ly",
+		"/home/zach/versipel/flute-material.ly",
+		"/home/zach/versipel/score.pdf",
+		"/home/zach/versipel/clarinet.pdf",
+		"/home/zach/versipel/ansatz/Pine_Ansatz_Flute.pdf",
+		"/home/zach/versipel/ansatz/style.css",
+		"/home/zach/versipel/ansatz/header.css",
+		"/home/zach/versipel/ansatz/index.html",
+		"/home/zach/versipel/book-titling.ily",
+		"/home/zach/versipel/composition-functions.ly",
+		"/home/zach/versipel/style.ly",
+		"/home/zach/versipel/material.ly",
+		"/home/zach/versipel/snippets-clarinet.ly",
+		"/home/zach/.config/sublime-text/Packages/User/Versipel.sublime-build",
+		"/home/zach/versipel/woodwind-functions.ly",
+		"/home/zach/versipel/cross-staff-test.ly",
+		"/home/zach/Documents/nm4p_charts/Style.ly",
+		"/home/zach/versipel/harpsichord.pdf",
+		"/home/zach/versipel/lilymusic-before-trunc.ly",
+		"/home/zach/versipel/pentachords.ly",
+		"/home/zach/versipel/versipel.ly",
+		"/home/zach/versipel/pentachords.pdf",
+		"/home/zach/Documents/exponential_durations.ly",
+		"/home/zach/Documents/test.ly",
+		"/home/zach/versipel/pentachords.scm",
+		"/home/zach/Documents/nm4p_charts/Bil Afrah/Bil Afrah.ly",
+		"/home/zach/Documents/nm4p_charts/Enta Omry/Enta Omry.ly",
+		"/home/zach/Documents/nm4p_charts/Parts/part-book.ily",
+		"/home/zach/Documents/nm4p_charts/Ana Dammi Falastini/Ana Dammi Falastini.ly",
+		"/home/zach/versipel/exponential-rhythms.ly",
+		"/home/zach/Documents/nm4p_charts/README.md",
+		"/home/zach/Documents/nm4p_charts/Parts/Parts.ly",
+		"/home/zach/Documents/nm4p_charts/Zeina/Zeina.ly",
+		"/home/zach/Documents/nm4p_charts/Leve Palestina/Leve Palestina.ly",
+		"/home/zach/Documents/nm4p_charts/Score.pdf",
+		"/home/zach/Documents/muertos-dio/la_llorona.ly",
+		"/home/zach/Documents/muertos-dio/gnossienne.ly",
+		"/home/zach/Documents/muertos-dio/santa_sangre.ly",
+		"/home/zach/Documents/muertos-dio/vis_hora.ly",
+		"/home/zach/Documents/muertos-dio/Book.ly",
+		"/home/zach/Documents/muertos-dio/love_in_outer_space.ly",
+		"/home/zach/Documents/muertos-dio/ana_dammi_falastini.ly",
+		"/home/zach/Documents/muertos-dio/Phone.ly",
+		"/home/zach/Documents/nm4p_charts/Parts.ly",
+		"/home/zach/Documents/muertos-dio/oll-test.ly",
+		"/home/zach/Documents/muertos-dio/the_fool.ly",
+		"/home/zach/Documents/muertos-dio/cairn_builder.ly",
+		"/home/zach/Documents/nm4p_charts/part-book.ily",
+		"/home/zach/Documents/muertos-dio/Book.oll.log",
+		"/home/zach/.config/sublime-text/Packages/User/LilyPond.sublime-build",
+		"/home/zach/Documents/muertos-dio/Style.ly",
+		"/home/zach/Documents/muertos-dio/cairn_builder.pdf",
+		"/home/zach/Documents/muertos-dio/gnossienne.pdf",
+		"/home/zach/Documents/muertos-dio/santa_sangre.pdf",
+		"/home/zach/Documents/nm4p_charts/Accompaniment-C-treble.ily",
+		"/home/zach/Documents/nm4p_charts/Melody.pdf",
+		"/home/zach/Documents/nm4p_charts/Melody-B_flat.ily",
+		"/home/zach/Documents/nm4p_charts/Score.ly",
+		"/home/zach/Documents/nm4p_charts/generate-book.sh",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Ana Dammi Falastini.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Score.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/generateBook.sh",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/read-from-file.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Accompaniment-F.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Bil Afrah.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Zeina.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Enta Omry.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Phone.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Style.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/readme.md",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Folk Medley.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Leve Palestina.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Accompaniment.pdf",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Zeina.pdf",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/textMarkTest.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Enta Omry.pdf",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Bil Afrah.pdf",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Bass.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/ana_dammi_falastini.ly",
+		"/home/zach/Documents/Nola-Musicians-for-Palestine/Anna Dammi Falastini.ly",
+		"/home/zach/Buffalo/MIDIs/Phrase_1.ly",
+		"/home/zach/Buffalo/MIDIs/Phrase_2.ly",
+		"/home/zach/Buffalo/MIDIs/Phrase_3.ly",
+		"/home/zach/Buffalo/MIDIs/Phrase_4.ly",
+		"/home/zach/Buffalo/MIDIs/Phrase_5.ly",
+		"/home/zach/Documents/Misc. Scores/purim2024.ly",
+		"/home/zach/Documents/Eris/Baritone-Style.ily",
+		"/home/zach/Documents/Palestine/Phone.ly",
+		"/home/zach/Documents/Palestine/Anna Dammi Falastini.ly",
+		"/home/zach/Documents/Palestine/Bil Afrah.ly",
+		"/home/zach/Documents/Palestine/Leve Palestina.ly",
+		"/home/zach/Documents/Palestine/Enta Omry.ly",
+		"/home/zach/Documents/Palestine/Accompaniment-F.ly",
+		"/home/zach/Documents/Palestine/Bass.pdf",
+		"/home/zach/Documents/Palestine/Zeina.ly",
+		"/home/zach/Documents/Palestine/To Do:",
+		"/home/zach/Documents/Clarinet-Package/Global.ly"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"cart_2",
+			"=\"",
+			"href",
+			"a",
+			"          <",
+			"stump",
+			"title",
+			"header",
+			"pdftitle",
+			"numb",
+			"bar",
+			"rehea",
+			"8",
+			"header",
+			"\\markSection \"You've got...\"",
+			"\\markSection \"La la...\"",
+			"\\markSection \"We want...\"",
+			"\\mark",
+			"mark",
+			"\\mark #3",
+			"\\mark \"La la\"",
+			"\\mark #2",
+			"mark #1",
+			"Globaly",
+			"\\mark",
+			"Bass",
+			"give_up_the_stump",
+			"a''1",
+			"scaleDur",
+			"\\scaleDurations 31/32 r4",
+			"\\scaleDurations 31/32 r8",
+			"\\{",
+			"\\set stemLeftBeamCount = 1 ",
+			"\\set stemRightLeftCount = 1 ",
+			"\\set stemRightBeamCount = 1 ",
+			"headlessInside ",
+			"b-rh",
+			"r8",
+			"32..",
+			"r16...",
+			"r32...",
+			"\\hideRest ",
+			"r16...",
+			"\\hideRest ",
+			"r32...",
+			">16 ",
+			"aes",
+			"grace",
+			"g",
+			"a",
+			">16 ",
+			">16",
+			"Beam",
+			"feather",
+			"32",
+			"64",
+			"128",
+			"256",
+			"\\stopDiv ",
+			"\\startDiv ",
+			"\\stopDivide ",
+			"32",
+			"64",
+			"128",
+			"256",
+			"\\set stemLeftBeamCount = 1 ",
+			"\\set stemRightBeamCount = 1 ",
+			"feather",
+			"32",
+			"64",
+			"32",
+			"64",
+			"128",
+			"256",
+			"128",
+			"a",
+			"headlessInside",
+			"\\set stemLeftBeamCount = 1 ",
+			"\\set stemRightBeamCount = 1 ",
+			"\\harmonic ",
+			"bookTitle",
+			"\\pushNC ",
+			"\\pushNCs",
+			"\\pushNCs ",
+			"\\pushNC",
+			"^",
+			"\\tag #'clarinet { \\allowPageTurn }",
+			"\\allowPageTurn",
+			"31/16",
+			"\\tag #'(clarinet tmi) \\pushNCs",
+			"\\tag #'(clarinet tmi) \\pushNC",
+			"\\tag #'(clarinet tmi) \\pushNC ",
+			"\\tag #'clarinet \\pushNC",
+			"Tag",
+			"f16",
+			"c-cl",
+			"''\n",
+			"\\set stemLeftBeamCount = 1",
+			"\\set stemRightBeamCount = 1",
+			"s1 s1",
+			"tag #'flute",
+			"reak",
+			"break",
+			"reak",
+			"            \\",
+			"break",
+			"%m42",
+			"tag",
+			"\\foot",
+			"_",
+			" \\tweak color #\"red\" ",
+			"\\tweak color #\"red\" ",
+			"s2",
+			".\"  ",
+			"... ",
+			"footnot",
+			")    ",
+			"(apply-last-duration",
+			"(pentachord",
+			"chordify",
+			" (",
+			"  ",
+			"rh",
+			" '",
+			"list",
+			"               (",
+			"  (",
+			"  "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\\mark #3",
+			"\\mark #2",
+			"\\mark #1",
+			"\\markSection",
+			"\\mark \"You've got...\"",
+			"\\mark \"La la...\"",
+			"\\mark \"La la\"",
+			"mark \"We want...\"",
+			"\\textMark",
+			"\\magicQuarter",
+			"\\magicEighth",
+			"{",
+			"",
+			"16",
+			"r8",
+			"r16",
+			"",
+			"r8",
+			"",
+			"r16",
+			">16\\arpeggio",
+			">16",
+			"",
+			">16",
+			"",
+			">16",
+			"",
+			">16",
+			"",
+			" ",
+			"",
+			" ",
+			"",
+			"\\tag #'(clarinet tmi) { \\allowPageTurn }",
+			"\\tag #'(flute tmi) { \\allowPageTurn }",
+			"\\pushNCs",
+			"\\pushNC",
+			"\\tag #'(clarinet tmi) \\pushNC",
+			"\\set stemLeftBeamCount = 2",
+			"\\set stemRightBeamCount = 2",
+			"s1",
+			" ",
+			"(aplad",
+			"(5ach",
+			"exp",
+			"rexp",
+			"exp",
+			"rexp",
+			"\\(r\\+exponentiate \\(inv\\-pentachord \\1\\) \\(ly:make-duration \\2 0\\)\\)",
+			"\\(pentachord \\1\\) \\(ly:make-duration \\2 0\\)\\)",
+			"\\(pentachord \\1 \\(ly:make-duration \\2 0\\)\\)\\)",
+			"\\(pentachord \\1 \\(ly:make-duration \\2 0\\)\\)",
+			"chordify",
+			"\\(",
+			"s2\\.",
+			"ana_dammi_falastini",
+			"s4",
+			"\\1 \\28~\\22",
+			"melody",
+			"\\acciaccatura",
+			" \\part-clef",
+			"Zeina",
+			"Leve_Palestina",
+			"Enta_Omry",
+			"Bil_Afrah-",
+			"part-clef",
+			"part-key",
+			"part-clef",
+			"\\part-key-text",
+			"\\\\$1",
+			"$1",
+			"SONG",
+			"'",
+			"\"",
+			"",
+			" ",
+			"header",
+			"Ana",
+			"-",
+			"piece",
+			"Melody",
+			"",
+			" ",
+			"Percussion",
+			"Bass",
+			"Chords",
+			"Accompaniment",
+			"MelodyOne",
+			"",
+			" ",
+			"Percussion",
+			"Bass",
+			"Chords",
+			"Accompaniment",
+			"MelodyOne",
+			"",
+			" ",
+			"Percussion",
+			"Bass",
+			"Chords",
+			"Accompaniment",
+			"MelodyTwo",
+			"MelodyOne",
+			"",
+			" ",
+			"Percussion",
+			"Bass",
+			"Chords",
+			"Accompaniment",
+			"MelodyTwo",
+			"MelodyOne",
+			" ",
+			"",
+			" ",
+			"Percussion",
+			"Bass",
+			"Chords",
+			"Accompaniment",
+			"MelodyTwo",
+			"MelodyOne",
+			"Melody"
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/Test.gs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1975,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								380,
+								383
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "html/README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1801,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1314,
+								1314
+							]
+						],
+						"settings":
+						{
+							"auto_name": "README.md",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 452.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "docs/gateway-map.md",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5170,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5170,
+								5170
+							]
+						],
+						"settings":
+						{
+							"auto_name": "gateway-map.md",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1628.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1434,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								562,
+								562
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 884.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "gateway-map.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1133,
+								1133
+							]
+						],
+						"settings":
+						{
+							"auto_name": "## 🗺️ Tokenized Access Gateway v2 – Roman Bureaucr",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 60.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 314.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/LilyPond.sublime-build",
+	"project": "tag",
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"pentachords.ly"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 272.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

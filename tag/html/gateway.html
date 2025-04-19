@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Roman Bureaucracy Office</title>
+    <style>
+      <?!= include("visual") ?>
+    </style>
+  </head>
+  <body>
+    <div class="bureaucracy-office">
+      <div class="scene">
+        <!-- Bureaucrat sprite (placeholder) -->
+        <div class="bureaucrat">🤔📐</div>
+
+        <!-- Speech bubble -->
+        <div class="speech-bubble">
+          I'll have the scribe run it to you later.<br>
+          Write your name on the chalk board.
+        </div>
+
+        <!-- Chalkboard form -->
+        <form id="email-form" class="chalkboard" novalidate>
+          <input
+            type="email"
+            id="email-input"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          >
+          <button type="submit">Request Token</button>
+        </form>
+
+        <!-- Response message -->
+        <div id="response-message" class="response"></div>
+      </div>
+    </div>
+
+    <script>
+      <?!= include("accessForm") ?>
+    </script>
+  </body>
+</html>
