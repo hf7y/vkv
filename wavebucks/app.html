@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= include('Styles'); ?>
+  </head>
+  <body>
+    <div id="iso-grid">
+      <header>
+        <h1>₩<span id="balance">0.00</span></h1>
+      </header>
+
+      <div id="icons-container">
+        <div id="icons-wrapper"></div>
+      </div>
+      <div id="bars-container">
+        <div id="bars-wrapper"></div>
+      </div>
+    </div>
+
+    <?!= include('Scripts'); ?> <!-- loadBalance is in here -->
+    <script>
+      try {
+        const token = <?= JSON.stringify(token || "") ?>;
+        loadBalance(token);
+      } catch (err) {
+        console.error("Token load error:", err);
+        document.body.innerHTML = `<pre>Token error: ${err.message}</pre>`;
+      }
+    </script>
+  </body>
+</html>

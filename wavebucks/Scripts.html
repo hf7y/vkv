@@ -1,0 +1,132 @@
+<script>
+const scale     = 4;
+const isoXStep  = 12;
+const isoYStep  = -6;
+const layerStep = 3.5;
+
+function formatBalanceValue(n) {
+  return n.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function fitPyramid(totalBars) {
+  let sum = 0, nBottom = 0;
+  while (sum < totalBars) {
+    nBottom++;
+    sum += nBottom;
+  }
+  return { nBottom, triangle: sum };
+}
+
+function buildBarPyramid(nBottom, baseXStep, baseYStep, rowOffsetX, rowOffsetY) {
+  const positions = [];
+  for (let r = 0; r < nBottom; r++) {
+    for (let i = 0; i < nBottom - r; i++) {
+      positions.push({
+        x: i * baseXStep + r * rowOffsetX - nBottom * baseXStep,
+        y: i * baseYStep + r * rowOffsetY - nBottom * baseYStep
+      });
+    }
+  }
+  return positions;
+}
+
+function decomposeBalance(n) {
+  const denoms = [
+    { value:1000, max:100, url:'https://i.imgur.com/gHlLsqs.png' },
+    { value:   1, max: 10, url:'https://i.imgur.com/vDX6P8H.png' },
+    { value:0.01, max: 10, url:'https://i.imgur.com/u9YaBIy.png' },
+  ];
+  let rest = n, piles = [];
+  denoms.forEach(d => {
+    let cnt = Math.floor(rest / d.value);
+    rest -= cnt * d.value;
+    while (cnt > 0) {
+      const size = Math.min(cnt, d.max);
+      piles.unshift({ size, url: d.url });
+      cnt -= size;
+    }
+  });
+  return piles;
+}
+
+function getPileCoords(index) {
+  let s = 0, count = 0;
+  while (true) {
+    for (let x = s; x >= 0; x--) {
+      let y = s - x;
+      if (count === index) return { x, y };
+      count++;
+    }
+    s++;
+  }
+}
+
+function loadBalance(token) {
+  google.script.run
+    .withSuccessHandler(balance => {
+      document.getElementById('balance').innerText = balance.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      renderBalance(balance);
+    })
+    .withFailureHandler(err => {
+      alert(err.message);
+    })
+    .getUserBalanceByToken(token);
+}
+
+
+// 4️⃣ Main render
+function renderBalance(balance) {
+  // 1) Format the raw number:
+  const formatted = formatBalanceValue(balance);
+  // 2) Write it out:
+
+  document.getElementById('balance').innerText = `${formatted}`;
+  const piles        = decomposeBalance(balance);
+  const barUrl       = 'https://i.imgur.com/gHlLsqs.png';
+  const isoContainer = document.getElementById('icons-wrapper');
+  isoContainer.innerHTML = '';
+
+  // — Draw bills & coins in reverse order so lower‑index piles sit on top
+  for (let pi = piles.length - 1; pi >= 0; pi--) {
+    const pile = piles[pi];
+    if (pile.url === barUrl) continue;  // skip bars here
+    const { x, y } = getPileCoords(pi);
+    const baseX = (y - x) * isoXStep * scale;
+    const baseY = (x + y) * isoYStep * scale;
+    for (let layer = 0; layer < pile.size; layer++) {
+      const img = document.createElement('img');
+      img.src       = pile.url;
+      img.className = 'icon';
+      const layerY = -layer * layerStep * scale;
+      img.style.transform =
+        `translate(${baseX}px, ${baseY + layerY}px) scale(${scale})`;
+      isoContainer.appendChild(img);
+    }
+  }
+
+  // — Now draw the bars as a dynamic-height pyramid
+  const totalBars    = piles.reduce((sum,p) => p.url === barUrl ? sum + p.size : sum, 0);
+  const barContainer = document.getElementById('bars-wrapper');
+  barContainer.innerHTML = '';
+
+  // Determine bottom row length to fit all bars
+  const { nBottom } = fitPyramid(totalBars);
+  const positions   = buildBarPyramid(nBottom, 11, 4, 5, -4);
+
+  // Only render as many as we actually have
+  positions.slice(0, totalBars).forEach(pos => {
+    const img = document.createElement('img');
+    img.src       = barUrl;
+    img.className = 'icon';
+    img.style.transform =
+      `translate(${(pos.x - isoXStep) * scale}px, ${(pos.y - isoYStep) * scale}px) scale(${scale})`;
+    barContainer.appendChild(img);
+  });
+}
+</script>

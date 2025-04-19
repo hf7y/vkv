@@ -1,0 +1,83 @@
+<style>
+body {
+  font-family:
+    "Noto Sans KR",       /* Google Noto Sans Korean via @import or <link> */
+    "Segoe UI Symbol",    /* Windows symbol font */
+    "Apple Color Emoji",  /* macOS/iOS symbol font */
+    Arial,                /* general Latin fallback */
+    sans-serif;
+  text-align: center;
+  /* padding: 3rem; */
+  font-size: 5em;
+  color: yellow;
+  /* background-color: #000; */
+}
+
+/* 1) Make sure your header sits above everything */
+header {
+  position: relative;
+  z-index: 10;
+  height: 25%;
+  text-align: center;
+  padding: 100px;
+}
+
+/* 2) Scope the grid & give containers their own stacking context */
+#icons-container,
+#bars-container {
+  position: relative;   /* Important! */
+  width: 100%;
+  height: 150px;        /* whatever height you need */
+  margin: 1rem 0;
+  z-index: 1;           /* above the bg grid (z‑index:0) */
+}
+
+/* 3) Apply the isometric grid as the bg of the container */
+#iso-grid {     /* or #bars-container, or both */
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+  background-color: #000;
+  background-image:
+    repeating-linear-gradient(
+      20deg,
+      #ccc,
+      #0ff 1px,
+      transparent 1px,
+      transparent 45px
+    ),
+    repeating-linear-gradient(
+      -25deg,
+      #ccc,
+      #0ff 1px,
+      transparent 1px,
+      transparent 45px
+    );
+  background-size: 531px 1390px;
+  background-repeat: repeat;
+}
+
+#bars-container {
+  height: 0px;
+}
+
+/* 4) Center the wrapper at the bottom of its container */
+#icons-wrapper,
+#bars-wrapper {
+  position: absolute;
+  bottom: 0;              /* hug the bottom edge */
+  left: 50%;              /* center horizontally */
+  transform: translateX(-50%);
+  /* no width/height needed here */
+}
+
+/* 5) Your icon styling stays the same */
+.icon {
+  position: absolute;
+  image-rendering: pixelated;
+  /* we leave sizing to the <img> natural dimensions or JS scale() */
+}
+
+</style>

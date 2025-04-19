@@ -1,107 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Inventory Map of Unit 7069</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory Viewer</title>
+
+  <!-- Optional external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- 
+    This static page fetches and displays data about a single inventory object.
+    It expects a hash in the URL like #id=stack-1, and uses that ID to fetch JSON data.
+    The page is statically served and dynamically rendered via JavaScript.
+  -->
 </head>
 <body>
   <header>
-    <h1>Inventory</h1>
+    <h1>Inventory Detail</h1>
+    <!-- Dynamically filled: link to parent object or map -->
+    <nav id="back-link"></nav>
   </header>
-  <main>
-    <section>
-      <h2>Zones of Unit 7069</h2>
-      <ul>
-        <li>
-          <a href="scrim/">
-            <span>Scrim Zone</span>
-            <img src="icons/scrim.png" alt="" style="--x: 3; --y: 0;">
-          </a>
-        </li>
 
-        <li>
-          <a href="shelf-a">
-            <span>Shelf A</span>
-            <img src="icons/shelf-left.png" alt="" style="--x: 3; --y: 1;">
-            <img src="icons/shelf-right.png" alt="" style="--x: 3; --y: 2;">
-          </a>
-        </li>
+  <!-- Status area used for "Loading...", "Error", or no-ID messages -->
+  <section id="status-message">
+    <p>Loading...</p> <!-- Gets overwritten by JS -->
+  </section>
 
-        <li>
-          <a href="shelf-b">
-            <span>Shelf B</span>
-            <img src="icons/shelf-left.png" alt="" style="--x: 3; --y: 3;">
-            <img src="icons/shelf-right.png" alt="" style="--x: 3; --y: 4;">
-          </a>
-        </li>
+  <!-- Main object info container, dynamically filled by JS -->
+  <section id="object-details" style="display: none;">
+    <h2 id="object-label"></h2>
+    <p><strong>ID:</strong> <span id="object-id"></span></p>
+    <p><strong>Category:</strong> <span id="object-category"></span></p>
+    <p><strong>Description:</strong> <span id="object-description"></span></p>
+    <p id="object-photo-link"></p>
+    <p id="object-update-link"></p>
+  </section>
 
-        <li>
-          <a href="speaker-zone">
-            <span>Speaker Zone</span>
-            <img src="icons/speakers-right.png" alt="" style="--x: 3; --y: 5;">
-            <img src="icons/speakers-left.png" alt="" style="--x: 2; --y: 5;">
-          </a>
-        </li>
+  <!-- List of contained (child) objects -->
+  <section id="child-objects" style="display: none;">
+    <h2>Contained Items</h2>
+    <ul id="child-list"></ul>
+  </section>
 
-        <li>
-          <a href="stash/">
-            <span>Stash</span>
-            <img src="icons/chicken-stack.png" alt="" style="--x: 2; --y: 0;">
-          </a>
-        </li>
-
-        <li>
-          <a href="stack_1/">
-            <span>Stack 1</span>
-            <img src="icons/5-stack.png" alt="" style="--x: 2; --y: 1;">
-          </a>
-        </li>
-
-        <li>
-          <a href="stack_2/">
-            <span>Stack 2</span>
-            <img src="icons/5-stack.png" alt="" style="--x: 2; --y: 2;">
-          </a>
-        </li>
-
-        <li>
-          <a href="stack_3/">
-            <span>Stack 3</span>
-            <img src="icons/2-stack.png" alt="" style="--x: 1; --y: 1;">
-          </a>
-        </li>
-
-        <li>
-          <a href="harp/">
-            <span>Laser Harp</span>
-            <img src="icons/harps-right.png" alt="" style="--x: 1; --y: 0;">
-            <img src="icons/harps-left.png" alt="" style="--x: 0; --y: 0;">
-          </a>
-        </li>
-
-        <li>
-          <a href="big_cart/">
-            <span>Big Cart</span>
-            <img src="icons/big-cart.png" alt="" style="--x: 0; --y: 1;">
-          </a>
-        </li>
-
-        <li>
-          <a href="cart_1/">
-            <span>Cart 1</span>
-            <img src="icons/full-cart.png" alt="" style="--x: 0; --y: 2;">
-          </a>
-        </li>
-
-        <li>
-          <a href="cart_2/">
-            <span>Cart 2</span>
-            <img src="icons/empty-cart.png" alt="" style="--x: 0; --y: 3;">
-          </a>
-        </li>
-      </ul>
-    </section>
-  </main>
+  <!-- Client-side router, fetcher, and renderer -->
+  <script src="app.js"></script>
 </body>
 </html>
