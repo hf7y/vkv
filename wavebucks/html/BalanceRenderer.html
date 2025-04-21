@@ -1,5 +1,7 @@
-<script>
-const scale     = 4;
+// BalanceRenderer.html — only JS, no <script> tags or HTML
+console.log('[BalanceRenderer] loaded');
+
+const scale     = 2;
 const isoXStep  = 12;
 const isoYStep  = -6;
 const layerStep = 3.5;
@@ -64,44 +66,28 @@ function getPileCoords(index) {
   }
 }
 
-function loadBalance(token) {
-  google.script.run
-    .withSuccessHandler(balance => {
-      document.getElementById('balance').innerText = balance.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      renderBalance(balance);
-    })
-    .withFailureHandler(err => {
-      alert(err.message);
-    })
-    .getUserBalanceByToken(token);
-}
-
-
-// 4️⃣ Main render
+/**
+ * Draw the isometric coins/bills + bar pyramid
+ */
 function renderBalance(balance) {
-  // 1) Format the raw number:
   const formatted = formatBalanceValue(balance);
-  // 2) Write it out:
+  document.getElementById('balance').innerText = formatted;
 
-  document.getElementById('balance').innerText = `${formatted}`;
-  const piles        = decomposeBalance(balance);
-  const barUrl       = 'https://i.imgur.com/gHlLsqs.png';
+  const piles = decomposeBalance(balance);
+  const barUrl = 'https://i.imgur.com/gHlLsqs.png';
   const isoContainer = document.getElementById('icons-wrapper');
   isoContainer.innerHTML = '';
 
-  // — Draw bills & coins in reverse order so lower‑index piles sit on top
+  // bills & coins
   for (let pi = piles.length - 1; pi >= 0; pi--) {
     const pile = piles[pi];
-    if (pile.url === barUrl) continue;  // skip bars here
+    if (pile.url === barUrl) continue;
     const { x, y } = getPileCoords(pi);
     const baseX = (y - x) * isoXStep * scale;
     const baseY = (x + y) * isoYStep * scale;
     for (let layer = 0; layer < pile.size; layer++) {
       const img = document.createElement('img');
-      img.src       = pile.url;
+      img.src = pile.url;
       img.className = 'icon';
       const layerY = -layer * layerStep * scale;
       img.style.transform =
@@ -110,23 +96,19 @@ function renderBalance(balance) {
     }
   }
 
-  // — Now draw the bars as a dynamic-height pyramid
-  const totalBars    = piles.reduce((sum,p) => p.url === barUrl ? sum + p.size : sum, 0);
+  // bars pyramid
+  const totalBars = piles.reduce((sum,p) => p.url===barUrl?sum+p.size:sum,0);
+  const { nBottom } = fitPyramid(totalBars);
+  const positions   = buildBarPyramid(nBottom,11,4,5,-4);
   const barContainer = document.getElementById('bars-wrapper');
   barContainer.innerHTML = '';
 
-  // Determine bottom row length to fit all bars
-  const { nBottom } = fitPyramid(totalBars);
-  const positions   = buildBarPyramid(nBottom, 11, 4, 5, -4);
-
-  // Only render as many as we actually have
-  positions.slice(0, totalBars).forEach(pos => {
+  positions.slice(0,totalBars).forEach(pos => {
     const img = document.createElement('img');
-    img.src       = barUrl;
+    img.src = barUrl;
     img.className = 'icon';
     img.style.transform =
-      `translate(${(pos.x - isoXStep) * scale}px, ${(pos.y - isoYStep) * scale}px) scale(${scale})`;
+      `translate(${(pos.x - isoXStep)*scale}px, ${(pos.y - isoYStep)*scale}px) scale(${scale})`;
     barContainer.appendChild(img);
   });
 }
-</script>

@@ -1,6 +1,6 @@
 // accessForm.html – pure JS for templated include
 
-const gatewayURL = "" //update
+// html/accessForm.html – raw JS only
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('email-form');
@@ -10,21 +10,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-
     const email = emailInput.value.trim();
     if (!email) {
-      responseDiv.textContent = "You must write your name on the chalk board.";
+      responseDiv.textContent = "You must write your name on the chalkboard.";
       return;
     }
 
-    // Disable to prevent double‑submit
     button.disabled = true;
     responseDiv.textContent = "Very well... the scribe will run it to you shortly.";
 
-    // Log the form attempt
+    // log the form attempt
     google.script.run.logEvent('FormSubmitted', email, 'Gateway request');
 
-    // Send the email and handle results
+    // send the magic link
     google.script.run
       .withSuccessHandler(function () {
         responseDiv.textContent = "Check your email, citizen.";
@@ -34,12 +32,11 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Error sending email:", error);
         responseDiv.textContent = "The scroll was dropped en route. Try again.";
         button.disabled = false;
-        // Log the failure
         google.script.run.logEvent('EmailError', email, error.toString());
       })
-      .sendAccessEmail(email, gatewayURL); // apps script deployment
+      .sendAccessEmail(email, GATEWAY_URL); // GATEWAY_URL in sheetConfig.gs
 
-    // Clear the input so they have to re‑enter if they retry
     emailInput.value = "";
   });
 });
+

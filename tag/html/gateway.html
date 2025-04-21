@@ -1,43 +1,39 @@
+<!-- html/gateway.html -->
 <!DOCTYPE html>
 <html>
   <head>
     <base target="_top">
     <title>Roman Bureaucracy Office</title>
-    <style>
-      <?!= include("visual") ?>
-    </style>
+    <!-- include all CSS from visual.html -->
+    <style><?!= include("visual") ?></style>
   </head>
   <body>
     <div class="bureaucracy-office">
       <div class="scene">
-        <!-- Bureaucrat sprite (placeholder) -->
         <div class="bureaucrat">🤔📐</div>
-
-        <!-- Speech bubble -->
         <div class="speech-bubble">
-          I'll have the scribe run it to you later.<br>
-          Write your name on the chalk board.
+          I can't let you in without a pass from the Senate.<br>
+          Write your address on the chalkboard.
         </div>
-
-        <!-- Chalkboard form -->
         <form id="email-form" class="chalkboard" novalidate>
           <input
             type="email"
             id="email-input"
-            placeholder="your@email.com"
+            placeholder="you@domain.com"
             required
             autocomplete="email"
-          >
+          />
           <button type="submit">Request Token</button>
         </form>
-
-        <!-- Response message -->
         <div id="response-message" class="response"></div>
       </div>
     </div>
 
+    <!-- include all JS from accessForm.html -->
     <script>
-      <?!= include("accessForm") ?>
+      // templated constant
+     const gatewayURL = <?= JSON.stringify(gatewayURL) ?>;
     </script>
+  <?!= include("accessForm") ?>
   </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style><?!= include('Styles'); ?></style>
+  </head>
+  <body>
+    <div id="iso-grid">
+      <header><h1>₩<span id="balance">?.??</span></h1></header>
+      <div id="icons-container"><div id="icons-wrapper"></div></div>
+      <div id="bars-container"><div id="bars-wrapper"></div></div>
+    </div>
+
+    <!-- drive the two‑step flow -->
+    <script><?!= include('BalanceLoader'); ?></script>
+    <script><?!= include('BalanceRenderer'); ?></script>
+    <script>
+      console.log('app.html loaded');
+      document.addEventListener('DOMContentLoaded', () => {
+        // 1) Grab the token that doGet() set on the template
+        let token = "<?= token ?>";
+        
+        // 2) (Optional) Fall back to URL param if you're in the IDE preview
+        if (!token) {
+          token = new URLSearchParams(window.location.search).get('token') || '';
+        }
+
+        console.log('[app.html] token =', token);
+        if (!token) {
+          showAccessDenied('No token provided.');
+          return;
+        }
+        loadBalance(token);
+      });
+    </script>
+
+  </body>
+</html>

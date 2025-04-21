@@ -131,4 +131,3 @@ function sendLink(email, token) {
 
   return { success: true };
 }
-

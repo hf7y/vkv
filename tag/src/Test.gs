@@ -1,63 +1,110 @@
 /**
- * Test.gs – Manual test harness for Tokenized Access Gateway (TAG)
- * Run each test individually from the Apps Script editor.
+ * Test.gs – Integration and unit tests for TAG
+ * Run `runAllTests()` to verify all core behaviors.
  */
 
-// === TEST: Generate and Store Token ===
-function testGenerateAndStoreToken() {
-  const email = "test@example.com";
-  const site = "https://example.com/test";
+// ─────────────────────────────────────────────────────────────────────────────
+// Assertion Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+function assertTrue(cond, msg) {
+  if (!cond) throw new Error('Assertion failed: ' + msg);
+}
+function assertFalse(cond, msg) {
+  if (cond) throw new Error('Assertion failed: ' + msg);
+}
+function assertEquals(actual, expected, msg) {
+  if (actual !== expected) throw new Error(
+    'Assertion failed: ' + msg + ' (got ' + actual + ', expected ' + expected + ')'
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Test: Token Generation & Lookup
+// ─────────────────────────────────────────────────────────────────────────────
+function testGenerateAndLookup() {
+  const email = 'test+' + Date.now() + '@example.com';
+  const site  = 'https://example.com/test';
   const token = generateToken(email, site);
-  Logger.log("Generated token: " + token);
+  storeToken(email, site, token);
 
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-  const data = sheet.getDataRange().getValues();
-  const found = data.some(row => row[0] === email && row[1] === site && row[2] === token);
-  
-  Logger.log("Token found in sheet: " + found);
+  const rec = lookupToken(token);
+  assertTrue(rec !== null, 'lookupToken should find the record');
+  assertEquals(rec.email, email, 'Stored email should match');
+  assertEquals(rec.site, site, 'Stored site should match');
+  assertEquals(rec.token, token, 'Stored token should match');
 }
 
-// === TEST: Lookup Token ===
-function testLookupToken() {
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-  const token = sheet.getRange(2, 3).getValue(); // assuming there's a token in row 2, col 3
+// ─────────────────────────────────────────────────────────────────────────────
+// Test: JSON Endpoint (valid + invalid tokens)
+// ─────────────────────────────────────────────────────────────────────────────
+function testJsonEndpoint() {
+  const email = 'json+' + Date.now() + '@example.com';
+  const site  = ScriptApp.getService().getUrl();
+  const token = generateToken(email, site);
+  storeToken(email, site, token);
 
-  const match = lookupToken(token);
-  if (match) {
-    Logger.log("Lookup success: " + JSON.stringify(match));
-  } else {
-    Logger.log("Token not found");
+  // Simulate JSON endpoint via doGet
+  const goodOut = doGet({ parameter: { format: 'json', token: token } });
+  const goodText = goodOut.getContent().trim();
+  assertTrue(goodText.charAt(0) === '{', 'Expected JSON for valid token, got: ' + goodText.slice(0,50));
+  const goodData = JSON.parse(goodText);
+  assertTrue(goodData.valid === true, 'JSON valid should be true for good token');
+  assertEquals(goodData.record.email, email, 'JSON record.email matches stored email');
+
+  const badOut = doGet({ parameter: { format: 'json', token: 'INVALID_TOKEN' } });
+  const badText = badOut.getContent().trim();
+  assertTrue(badText.charAt(0) === '{', 'Expected JSON for invalid token, got: ' + badText.slice(0,50));
+  const badData = JSON.parse(badText);
+  assertFalse(badData.valid, 'JSON valid should be false for invalid token');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Test: validateTagToken(token)
+// ─────────────────────────────────────────────────────────────────────────────
+function testValidateTagToken() {
+  const email = 'val+' + Date.now() + '@example.com';
+  const site  = 'https://example.com/validate';
+  const token = generateToken(email, site);
+  storeToken(email, site, token);
+
+  assertTrue(validateTagToken(token), 'validateTagToken should return true for valid token');
+  let threw = false;
+  try {
+    validateTagToken('NO_SUCH_TOKEN');
+  } catch (e) {
+    threw = true;
   }
+  assertTrue(threw, 'validateTagToken should throw for invalid token');
 }
 
-// === TEST: Send Access Email ===
-function testSendAccessEmail() {
-  const email = "test@example.com";
-  const site = "https://example.com/test";
-  sendAccessEmail(email, site);
-  Logger.log("Email sent to: " + email);
+// ─────────────────────────────────────────────────────────────────────────────
+// Test: doGet HTML Routing
+// ─────────────────────────────────────────────────────────────────────────────
+function testDoGetHtml() {
+  // No parameters => gateway
+  let out = doGet({ parameter: {} }).getContent();
+  assertTrue(out.indexOf('<form') !== -1, 'doGet() without token should serve gateway form');
+
+  // Valid token => success.html or denied.html
+  const email = 'html+' + Date.now() + '@example.com';
+  const site  = ScriptApp.getService().getUrl();
+  const token = generateToken(email, site);
+  storeToken(email, site, token);
+  out = doGet({ parameter: { token: token } }).getContent();
+  assertTrue(
+    out.includes('Access Granted') || out.includes('Access Denied'),
+    'doGet() with token should serve success or denied page'
+  );
 }
 
-// === TEST: doGet with valid token ===
-function testDoGetValid() {
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-  const token = sheet.getRange(2, 3).getValue(); // assume valid token in sheet
-
-  const e = { parameter: { token: token } };
-  const output = doGet(e);
-  Logger.log(output.getContent());
+// ─────────────────────────────────────────────────────────────────────────────
+// Run All Tests
+// ─────────────────────────────────────────────────────────────────────────────
+function runAllTests() {
+  testGenerateAndLookup();
+  testJsonEndpoint();
+  testValidateTagToken();
+  testDoGetHtml();
+  Logger.log('✅ All TAG tests passed!');
 }
 
-// === TEST: doGet with invalid token ===
-function testDoGetInvalid() {
-  const e = { parameter: { token: "invalid-token-1234" } };
-  const output = doGet(e);
-  Logger.log(output.getContent());
-}
-
-// === TEST: doGet with missing token ===
-function testDoGetMissing() {
-  const e = { parameter: {} };
-  const output = doGet(e);
-  Logger.log(output.getContent());
-}

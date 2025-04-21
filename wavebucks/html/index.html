@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <!-- Global styles -->
+
+    <!-- Page‑specific overrides -->
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        font-size: 1em;
+        text-align: center;
+        padding: 2rem;
+      }
+      .login-form {
+        background: #111;
+        border-radius: 8px;
+        padding: 2rem;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .login-form h1 {
+        margin-bottom: 1rem;
+      }
+      .login-form input {
+        width: 100%;
+        padding: 0.5em;
+        margin: 0.5em 0;
+        font-size: 1em;
+        border: none;
+        border-radius: 4px;
+      }
+      .login-form button {
+        width: 100%;
+        padding: 0.75em;
+        font-size: 1em;
+        background: #27ae60;
+        border: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .login-form button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #error-msg {
+        margin-top: 0.5em;
+        color: #e74c3c;
+        min-height: 1.2em;
+      }
+      #success-msg {
+        margin-top: 0.5em;
+        color: #2ecc71;
+        min-height: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-form">
+      <h1>WaveBucks Access</h1>
+      <p>Enter your email to receive a secure access link.</p>
+      <input
+        type="email"
+        id="email"
+        placeholder="you@example.com"
+        required
+        autocomplete="email"
+      />
+      <button id="request-link">Request Link</button>
+      <div id="error-msg"></div>
+      <div id="success-msg"></div>
+    </div>
+
+    <script>
+      (function() {
+        const WAVE_APP_URL = <?= JSON.stringify(WAVE_APP_URL) ?>;
+        const emailInput = document.getElementById('email');
+        const button     = document.getElementById('request-link');
+        const errorMsg   = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+
+        button.addEventListener('click', () => {
+          const email = emailInput.value.trim();
+          errorMsg.textContent = '';
+          successMsg.textContent = '';
+
+          if (!email) {
+            errorMsg.textContent = 'Please enter a valid email address.';
+            return;
+          }
+
+          button.disabled = true;
+          google.script.run
+            .withSuccessHandler(() => {
+              successMsg.textContent = 'Check your inbox for the access link.';
+              button.disabled = false;
+            })
+            .withFailureHandler(err => {
+              errorMsg.textContent = err.message || 'Failed to send link. Try again.';
+              button.disabled = false;
+            })
+            .sendAccessEmail(email, WAVE_APP_URL.replace(/^"|"$/g, ''));
+        });
+      })();
+    </script>
+  </body>
+</html>
