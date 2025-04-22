@@ -1,183 +1,123 @@
-# Wavebucks Integration with Tokenized Access Gateway (TAG)
+# Wavebucks Balance Viewer
 
-This README outlines how to integrate the Wavebucks balance viewer with the standalone TAG magic-link service. It details current behaviors for each file and the changes needed to leverage TAG’s token generation, storage, and validation.
+A Google Apps Script project that displays user balances in a fun, isometric pixel‑art style, gated by magic‑link authentication provided by the **Tokenized Access Gateway (TAG)**.
 
 ---
 
-## 1. app.html – Balance Viewer Template
+## 🚀 Quick Start
 
-**Current Role**
-- Renders the main Wavebucks UI when `?token` is present.
-- Inlines `Styles.html` and `Scripts.html`, which define and invoke `loadBalance(token)`.
-- Injects the token into the client script:
-  ```html
-  <script>
-    const token = <?= JSON.stringify(token || "") ?>;
-    loadBalance(token);
-  </script>
+1. **Configure Spreadsheets**
+   - Share your **Balances** sheet (ID in `src/sheetConfig.gs`).
+   - Ensure `Transactions` and `Balances` tabs exist with the correct headers.
+
+2. **Link the TAG Library**
+   - In **Resources → Libraries…**, add your TAG project’s Script ID.
+   - Select a stable version (not HEAD) and assign the identifier `TAG`.
+
+3. **Deploy as Web App**
+   - **Execute as:** `Me` (the deploying user)
+   - **Who has access:** `Anyone, even anonymous`
+   - Note the **Current web app URL** (your Wavebucks exec URL).
+
+4. **Trigger Tests** (optional but recommended)
+   - In the Apps Script editor, open **WavebucksTest.gs** and run `runAllWavebucksTests()`.
+
+5. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Publish Wavebucks Balance Viewer"
+   git push
+   ```
+
+---
+
+## 📂 Project Structure
+
+```text
+Wavebucks/
+├── src/
+│   ├── Code.gs             # doGet, balance lookup, TAG integration
+│   ├── Login.gs            # (legacy) login & signup handlers
+│   ├── FormSubmit.gs       # transaction processing trigger
+│   ├── sheetConfig.gs      # spreadsheet IDs & tab names
+│   └── WavebucksTest.gs    # unit & integration tests
+├── html/
+│   ├── index.html          # email‑entry login form
+│   ├── app.html            # balance viewer template
+│   ├── BalanceLoader.html  # client‑side token validation logic
+│   ├── BalanceRenderer.html# graphics rendering logic
+│   └── Styles.html         # shared CSS (Game Boy / isometric grid)
+└── assets/…                # (optional) pixel‑art sprites & borders
+```  
+
+---
+
+## 🔑 Authentication Flow
+
+1. **Login (index.html)**
+   - User enters email and clicks **Request Link**.
+   - Client calls `TAG.sendAccessEmail(email, WAVE_APP_URL)`.
+   - TAG emails a magic link: `https://…/exec?token=XYZ`.
+
+2. **Magic‑Link Entry**
+   - Clicking the link hits `src/Code.gs#doGet(e)` with `e.parameter.token`.
+   - `validateTagToken(token)` delegates to TAG via library:
+     ```js
+     TAG.validateTagToken(token);
+     ```
+   - On success → renders `app.html` with `tpl.token = token`; on failure → `bad-token.html`.
+
+3. **Balance Loading**
+   - **BalanceLoader.html**: two‑step flow:
+     ```js
+     validateTagToken(token)
+       → getUserBalanceByToken(token)
+       → renderBalance(balance)
+     ```
+   - `getUserBalanceByToken` uses `TAG.getEmailFromToken(token)` then `getUserBalanceByEmail(email)`.
+
+4. **Rendering (BalanceRenderer.html)**
+   - Formats the balance and decomposes into coins/bars.
+   - Renders an isometric grid of pixel‑art icons.
+
+---
+
+## 💾 Data Processing
+
+- **FormSubmit.gs** handles Google Form submissions:
+  - Hashes passwords (`SHA‑256`), updates `Balances`, marks transactions.
+  - **Unaffected** by TAG once the user reaches the app.
+
+- **sheetConfig.gs** holds:
+  ```js
+  const SHEET_ID   = '…';
+  const SHEET_NAME = 'Balances';
   ```
 
-**Changes for TAG Integration**
-1. **Token Validation Flow**
-   - Update `loadBalance(token)` to first call a new server-side `validateTagToken(token)`:
-     ```js
-     function loadBalance(token) {
-       google.script.run
-         .withSuccessHandler(() => _fetchBalance(token))
-         .withFailureHandler(err => showAccessDenied(err.message))
-         .validateTagToken(token);
-     }
+---
 
-     function _fetchBalance(token) {
-       google.script.run
-         .withSuccessHandler(balance => renderBalance(balance))
-         .withFailureHandler(err => showAccessDenied(err.message))
-         .getUserBalanceByToken(token);
-     }
-     ```
-2. **Implement `validateTagToken(token)`** in `Code.gs`:
-   ```js
-   function validateTagToken(token) {
-     const url = `${TAG_URL}?token=${encodeURIComponent(token)}`;
-     const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-     if (resp.getResponseCode() !== 200) {
-       throw new Error('Invalid or expired link.');
-     }
-     return true;
-   }
-   ```
-3. **Error Handling & UX**
-   - Add `showAccessDenied(msg)` to display an “Access Denied” message:
-     ```js
-     function showAccessDenied(msg) {
-       document.body.innerHTML = `<pre style="color:red;">Access Denied:\n${msg}</pre>`;
-     }
-     ```
-4. **Remove Local Token Logic**
-   - Deprecate any direct sheet lookups in `getUserBalanceByToken` for tokens.
+## 🧪 Testing
+
+- **WavebucksTest.gs** runs:
+  - `testGetUserBalanceByEmail()`
+  - `testValidateTagToken()`
+  - `testGetUserBalanceByToken()`
+  - `testDoGetRouting()`
+
+Invoke `runAllWavebucksTests()` to verify core behaviors before deployment.
 
 ---
 
-## 2. Code.gs – Server Routing & Helpers
+## 🔧 Customization & Deployment
 
-**Current Responsibilities**
-- **`doGet(e)`**: 
-  - Serves `app.html` if `?token` is present.
-  - Serves `index.html` otherwise.
-- **`getUserBalance()` / `getUserBalanceByEmail(email)`**: fetch balance by email.
-- **`getUserBalanceByToken(token)`**: scan local sheet for matching token.
-- **`include(filename)`**: templating helper.
-- **Utility functions**: `shareSheetPublicly()`, `debugToken()`, `migrateEmailToToken()`.
+- **Styles.html**: tweak colors, sizes, or swap in your own pixel‑art palette.
+- **BalanceRenderer**: adjust `scale`, `isoXStep`, `layerStep` for different resolutions.
+- **Assets**: drop in sprites under `assets/` and update URLs in HTML/CSS.
 
-**Changes for TAG Integration**
-1. **Token Validation → TAG API**
-   - Remove local token sheet lookups.
-   - Add:
-     ```js
-     const resp = UrlFetchApp.fetch(`${TAG_URL}?token=${token}`, { muteHttpExceptions: true });
-     if (resp.getResponseCode() === 200) {
-       // proceed
-     } else {
-       // serve denied view
-     }
-     ```
-2. **Routing in `doGet(e)`**
-   - Validate the token with TAG before serving `app.html`. On failure, serve `denied.html`.
-3. **Login Flow Swap-Out**
-   - Replace local email-link logic with calls to `sendAccessEmail(email, WAVE_APP_URL)`.
-4. **Cleanup & Deprecation**
-   - Remove `migrateEmailToToken()`, `shareSheetPublicly()`, `debugToken()`.
+When you’re ready:
+1. Commit & push to GitHub.  
+2. Create a new Web App deployment.  
+3. Share the **exec URL** with your users.
 
----
+Enjoy your pixel‑perfect balance viewer!  🚀
 
-## 3. FormSubmit.gs – Transaction Processor
-
-**Current Behavior**
-- Triggered on form submits to the **Transactions** sheet.
-- Extracts `Timestamp`, `Action`, `Amount`, `Password`, and `Email Address`.
-- Hashes password, updates or appends to **Balances**, and marks transactions processed.
-
-**TAG Impact**
-- No changes needed. Transactions remain gated by the successful TAG login flow.
-
----
-
-## 4. index.html – Login Form Template
-
-**Current Role**
-- Displays Wavebucks login form (`<h1>WaveBucks</h1>`) when no token is present.
-- Inlines `Styles.html` and form-specific CSS.
-- Calls `login()` in `Login_JS.html`.
-
-**Changes for TAG Integration**
-1. **Update `login()`** to call TAG:
-   ```js
-   function login() {
-     const email = document.getElementById('email').value.trim();
-     if (!email) return showError('Enter a valid email.');
-     google.script.run
-       .withSuccessHandler(() => showMessage('Check your inbox.'))
-       .withFailureHandler(err => showError(err.message))
-       .sendAccessEmail(email, 'https://TAG_WEB_APP_URL/exec');
-   }
-   ```
-2. **Remove Boilerplate**
-   - Ensure a single valid HTML structure.
-3. **Client-Side Logging**
-   - Optionally add `logEvent('FormSubmitted', email, 'WaveBucks login request')`.
-
----
-
-## 5. Login_JS.html – Client-Side Login Logic
-
-**Current Behavior**
-- Encodes email as base64 and calls `sendLoginLink(hashedEmail)`.
-- Toggles login/app views with `showApp()`.
-- Calls `getUserBalanceByEmail(email)`.
-
-**Changes for TAG Integration**
-1. **Use `sendAccessEmail` instead of `sendLoginLink`**; remove base64.
-2. **Simplify Success Handling**: just display confirmation.
-3. **Remove `showApp()` and email-based balance fetching**.
-4. **Implement `loadBalanceByToken(token)`** to fetch balance post-validation.
-
----
-
-## 6. html/Scripts.html – Balance Visualization & Load Logic
-
-**Current Role**
-- Defines isometric rendering and `renderBalance(balance)`.
-- Loads balance via `loadBalance(token)` calling `getUserBalanceByToken`.
-
-**Changes for TAG Integration**
-1. **Two-Step Load Flow** via `validateTagToken` (see section 1).
-2. **Error Handling**: use `showAccessDenied()`.
-3. **Remove Local Token Logic** in server code.
-
----
-
-## 7. Styles.html – Shared CSS
-
-**Current Role**
-- Global body and grid styles, isometric background.
-- `.icon { image-rendering: pixelated; }`.
-
-**Changes for TAG Integration**
-1. **Scope Styles** to `.balance-view` and `.login-view`.
-2. **Add Chalkboard Border** for `.login-form`:
-   ```css
-   .login-form {
-     border: 8px solid transparent;
-     border-image: url('../assets/board/chalkboard_border.png') 8 fill stretch;
-     background-color: #2f3e33;
-   }
-   ```
-3. **Maintain Pixelated Rendering**.
-
----
-
-## Next Steps
-
-1. Deploy TAG-powered login as the gateway to `app.html`.
-2. Implement `validateTagToken()` and update `loadBalance()` and `doGet()`.
-3. Verify wavebucks balances load correctly and unauthorized access is denied.

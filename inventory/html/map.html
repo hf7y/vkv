@@ -1,0 +1,124 @@
+<!-- map.html: Isometric Map Interface -->
+<style>
+  /* Map wrapper styling */
+  .map-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 200px;
+  }
+  
+  /* Map container for isometric layout */
+  .map-container {
+    position: relative;
+    width: 1200px;
+    height: 420px;
+  }
+  
+  /* Icon styling: positioned absolutely using CSS variables */
+  .icon {
+    position: absolute;
+    left: calc(var(--x) * 100px + var(--y) * 100px);
+    bottom: calc(var(--x) * 40px - var(--y) * 40px);
+    z-index: calc(var(--y) - var(--x) + 3);
+    width: 160px;
+    margin: 0;
+    padding: 0;
+    pointer-events: auto;
+    display: block;
+  }
+  
+  /* Selected icon styling */
+  .icon.selected {
+    border: 3px solid cyan;
+    transform: scale(1.1);
+    z-index: 100;
+  }
+  
+  /* Ensure <a> elements don’t add extra spacing */
+  .map-container a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    pointer-events: auto;
+  }
+</style>
+
+<section class="map-wrapper">
+  <div class="map-container">
+    <!-- Zone 'scrim' -->
+    <a href="#" onclick="selectZone('scrim'); return false;">
+      <img class="icon" data-zone="scrim" src="https://i.imgur.com/Vu4KMT4.png" style="--x:3;--y:0;" alt="Scrim">
+    </a>
+    <!-- Zone 'shelf-a' with two images -->
+    <a href="#" onclick="selectZone('shelf-a'); return false;">
+      <img class="icon" data-zone="shelf-a" src="https://i.imgur.com/6vBQuut.png" style="--x:3;--y:1;" alt="Shelf A">
+      <img class="icon" data-zone="shelf-a" src="https://i.imgur.com/1QCVYJR.png" style="--x:3;--y:2;" alt="Shelf A Alternate">
+    </a>
+    <!-- Zone 'shelf-b' with two images -->
+    <a href="#" onclick="selectZone('shelf-b'); return false;">
+      <img class="icon" data-zone="shelf-b" src="https://i.imgur.com/6vBQuut.png" style="--x:3;--y:3;" alt="Shelf B">
+      <img class="icon" data-zone="shelf-b" src="https://i.imgur.com/1QCVYJR.png" style="--x:3;--y:4;" alt="Shelf B Alternate">
+    </a>
+    <!-- Zone 'speaker-zone' with two images -->
+    <a href="#" onclick="selectZone('speaker-zone'); return false;">
+      <img class="icon" data-zone="speaker-zone" src="https://i.imgur.com/KIfaPMp.png" style="--x:3;--y:5;" alt="Speaker Zone">
+      <img class="icon" data-zone="speaker-zone" src="https://i.imgur.com/sphrG0z.png" style="--x:2;--y:5;" alt="Speaker Zone Alternate">
+    </a>
+    <!-- Zone 'stash' -->
+    <a href="#" onclick="selectZone('stash'); return false;">
+      <img class="icon" data-zone="stash" src="https://i.imgur.com/aFXlizk.png" style="--x:2;--y:0;" alt="Stash">
+    </a>
+    <!-- Zone 'stack-1' -->
+    <a href="#" onclick="selectZone('stack-1'); return false;">
+      <img class="icon" data-zone="stack-1" src="https://i.imgur.com/SNpfr6l.png" style="--x:2;--y:1;" alt="Stack 1">
+    </a>
+    <!-- Zone 'stack-2' -->
+    <a href="#" onclick="selectZone('stack-2'); return false;">
+      <img class="icon" data-zone="stack-2" src="https://i.imgur.com/SNpfr6l.png" style="--x:2;--y:2;" alt="Stack 2">
+    </a>
+    <!-- Zone 'stack-3' -->
+    <a href="#" onclick="selectZone('stack-3'); return false;">
+      <img class="icon" data-zone="stack-3" src="https://i.imgur.com/q06vi2A.png" style="--x:1;--y:1;" alt="Stack 3">
+    </a>
+    <!-- Zone 'harp_zone' with two images -->
+    <a href="#" onclick="selectZone('harp-zone'); return false;">
+      <img class="icon" data-zone="harpzone" src="https://i.imgur.com/qzt91nL.png" style="--x:1;--y:0;" alt="Harp Zone">
+      <img class="icon" data-zone="harp_zone" src="https://i.imgur.com/Xnv98Zw.png" style="--x:0;--y:0;" alt="Harp Zone Alternate">
+    </a>
+    <!-- Zone 'big-cart' -->
+    <a href="#" onclick="selectZone('big-cart'); return false;">
+      <img class="icon" data-zone="big-cart" src="https://i.imgur.com/KaChGRY.png" style="--x:0;--y:1;" alt="Big Cart">
+    </a>
+    <!-- Zone 'cart-1' -->
+    <a href="#" onclick="selectZone('cart-1'); return false;">
+      <img class="icon" data-zone="cart-1" src="https://i.imgur.com/MDes5Qs.png" style="--x:0;--y:2;" alt="Cart 1">
+    </a>
+    <!-- Zone 'cart-2' -->
+    <a href="#" onclick="selectZone('cart-2'); return false;">
+      <img class="icon" data-zone="cart-2" src="https://i.imgur.com/7b4AKe6.png" style="--x:0;--y:3;" alt="Cart 2">
+    </a>
+  </div>
+</section>
+
+<script>
+  /**
+   * Handles icon click events from the map.
+   * Calls showObject (from app.html) if available and updates icon selection.
+   * @param {string} zoneId The ID of the zone clicked.
+   */
+  function selectZone(zoneId) {
+    // Call the global showObject function if it's defined.
+    if (typeof showObject === "function") {
+      showObject(zoneId);
+    } else {
+      console.log("showObject is not defined – dummy mode for zone:", zoneId);
+    }
+    // Remove the 'selected' class from all icons.
+    document.querySelectorAll('.icon').forEach(icon => icon.classList.remove('selected'));
+    // Add 'selected' class to icons that match the zoneId.
+    document.querySelectorAll(`.icon[data-zone="${zoneId}"]`).forEach(icon => icon.classList.add('selected'));
+  }
+</script>

@@ -2,9 +2,6 @@
 <html>
   <head>
     <base target="_top">
-    <!-- Global styles -->
-
-    <!-- Page‑specific overrides -->
     <style>
       body {
         background-color: #000;
@@ -14,10 +11,11 @@
         padding: 2rem;
       }
       .login-form {
+
         background: #111;
         border-radius: 8px;
         padding: 2rem;
-        max-width: 400px;
+        max-width: 100%;
         margin: 0 auto;
       }
       .login-form h1 {
@@ -55,27 +53,44 @@
         color: #2ecc71;
         min-height: 1.2em;
       }
+      #landing {
+        width: 100%;
+        padding: 0;
+      }
+
+      .wide {
+        width: 100%;
+      }
+
+      #entry-box {
+        background: url("https://i.imgur.com/Wh8b2k6.png") no-repeat center center;
+        background-size: contain;
+        padding: 2rem;
+      }
     </style>
   </head>
   <body>
     <div class="login-form">
-      <h1>WaveBucks Access</h1>
-      <p>Enter your email to receive a secure access link.</p>
-      <input
-        type="email"
-        id="email"
-        placeholder="you@example.com"
-        required
-        autocomplete="email"
-      />
-      <button id="request-link">Request Link</button>
-      <div id="error-msg"></div>
-      <div id="success-msg"></div>
+      <!-- … guard image & text … -->
+      <div id="entry-box">
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          required
+          autocomplete="email"
+        />
+        <button id="request-link">Perge</button>
+        <div id="error-msg"></div>
+        <div id="success-msg"></div>
+      </div>
     </div>
 
     <script>
       (function() {
+        // Injected by Code.gs
         const WAVE_APP_URL = <?= JSON.stringify(WAVE_APP_URL) ?>;
+
         const emailInput = document.getElementById('email');
         const button     = document.getElementById('request-link');
         const errorMsg   = document.getElementById('error-msg');
@@ -101,7 +116,7 @@
               errorMsg.textContent = err.message || 'Failed to send link. Try again.';
               button.disabled = false;
             })
-            .sendAccessEmail(email, WAVE_APP_URL.replace(/^"|"$/g, ''));
+            .sendAccessEmail(email, WAVE_APP_URL);
         });
       })();
     </script>

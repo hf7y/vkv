@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8" />
+    <title>Inventory Browser</title>
+    <!-- Include a shared style file -->
+    <?!= include("style") ?>
+  </head>
+  <body>
+    <!-- Include the client rendering logic -->
+    <?!= include("app") ?>
+
+    <h1>Unit 7069</h1>
+
+    <!-- Include the map interface -->
+    <?!= include("map") ?>
+    <!-- This is where the record details will be rendered -->
+    <div id="app">
+      <p>Please select an object from the map.</p>
+    </div>
+  </body>
+</html>

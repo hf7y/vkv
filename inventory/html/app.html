@@ -1,0 +1,140 @@
+<!-- app.html -->
+<script>
+  // Utility: hash any string to a hex color
+  function hashStringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = '#';
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xFF;
+      color += ('00' + value.toString(16)).slice(-2);
+    }
+    return color;
+  }
+
+  function showMessage(msg) {
+    document.getElementById('app').innerHTML = `<p>${msg}</p>`;
+  }
+
+  function showObject(id) {
+    showMessage('Loading…');
+    google.script.run
+      .withSuccessHandler(pkg => {
+        renderCard(pkg.data, pkg.parentId);
+        renderList(pkg.childObjects);
+      })
+      .getObjectPackage(id);
+  }
+
+  function renderCard(data, parentId) {
+    // Compute border & category color
+    const catColor = data.Category
+      ? hashStringToColor(data.Category)
+      : 'cyan';
+
+    let html = `<article class="card" style="border-color: ${catColor}">`;
+
+    // Breadcrumb
+    html += `<nav class="breadcrumb">`;
+    if (parentId) {
+      html += `<a onclick="showObject('${parentId}')" class="breadcrumb-link">${parentId}</a> › `;
+    }
+    html += `<span class="breadcrumb-current">${data.ID}</span>`;
+    html += `</nav>`;
+
+    // Header
+    html += `<header class="card-header">`;
+    html += `
+      <div class="card-title" onclick="showObject('${data.ID}')">
+        <h2>${data.Label || 'Unnamed Object'}</h2>
+        <span class="subtitle">
+          ${data['Container Style'] || ''}
+          ${ data.Category
+             ? `<span class="category-label" style="color:${catColor}"> — ${data.Category}</span>`
+             : ''
+          }
+        </span>
+      </div>
+      <div class="card-buttons">
+        ${data.Photo
+          ? `<a class="photo-btn" href="${data.Photo}" target="_blank" aria-label="View Photo">👁️</a>`
+          : ``
+        }
+        <a class="update-btn" href="${data['Prefilled URL'] || '#'}" target="_blank" aria-label="Update">📤</a>
+      </div>
+    `;
+    html += `</header>`;
+
+    // Details
+    html += `<dl class="details">`;
+    if (data['Container Style']) {
+      html += `<dt>Container Style</dt><dd>${data['Container Style']}</dd>`;
+    }
+    if (data.Category) {
+      html += `<dt>Category</dt><dd class="category-value" style="color:${catColor}">${data.Category}</dd>`;
+    }
+    if (data.Description) {
+      html += `<dt>Description</dt><dd>${data.Description}</dd>`;
+    }
+    html += `</dl>`;
+
+    // Activity
+    if (data.Action) {
+      html += `
+        <details class="activity">
+          <summary>Latest Activity</summary>
+          <p>${data.Action} by ${data['Email Address'] || 'unknown'} on ${data.Timestamp || 'unknown'}.</p>
+          ${data.Comments ? `<p><em>${data.Comments}</em></p>` : ''}
+        </details>
+      `;
+    }
+
+    html += `</article>`;
+    document.getElementById('app').innerHTML = html;
+  }
+
+  function renderList(children) {
+    if (!children || children.length === 0) return;
+
+    let html = `
+      <h3 class="contents-heading">Contents</h3>
+      <ul class="item-list">
+    `;
+
+    children.forEach(item => {
+      const catColor = item.Category
+        ? hashStringToColor(item.Category)
+        : 'cyan';
+      html += `
+        <li class="item-row" style="border-color: ${catColor}">
+          <div class="item-info" onclick="showObject('${item.ID}')">
+            <h3>${item.Label}</h3>
+            <span class="subtitle">
+              ${item['Container Style'] || ''}
+              ${ item.Category
+                 ? `<span class="category-label" style="color:${catColor}"> — ${item.Category}</span>`
+                 : ''
+              }
+            </span>
+          </div>
+          <div class="item-buttons">
+            ${item.Photo
+              ? `<a class="photo-btn" href="${item.Photo}" target="_blank" aria-label="View Photo">👁️</a>`
+              : ``
+            }
+            <a class="update-btn" href="${item['Prefilled URL'] || '#'}" target="_blank" aria-label="Update">📤</a>
+          </div>
+        </li>
+      `;
+    });
+
+    html += `</ul>`;
+    document.getElementById('app').innerHTML += html;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('app').innerHTML = `<p>Please select a zone.</p>`;
+  });
+</script>
