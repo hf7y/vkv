@@ -1,0 +1,57 @@
+// BalanceLoader.html — only JS, no <script> tags or HTML
+console.log('[BalanceLoader] loaded');
+
+/**
+ * 1) Entry point: clean the raw token then validate with the server
+ */
+function loadBalance(rawToken) {
+  const token = String(rawToken).replace(/^"|"$/g, '');
+  console.log('[loadBalance] rawToken=', rawToken, '→ cleanToken=', token);
+
+  google.script.run
+    .withSuccessHandler(() => {
+      console.log('[loadBalance] validateTagToken succeeded');
+      fetchAndRender(token);
+    })
+    .withFailureHandler(err => {
+      console.error('[loadBalance] validateTagToken failed:', err);
+      showAccessDenied(err.message || err);
+    })
+    .validateTagToken(token);
+}
+
+/**
+ * 2) Once valid, fetch the numeric balance
+ */
+function fetchAndRender(token) {
+  console.log('[fetchAndRender] invoked for token =', token);
+  google.script.run
+    .withSuccessHandler(balance => {
+      console.log('[fetchAndRender] server returned balance=', balance);
+      const balEl = document.getElementById('balance');
+      if (balEl) balEl.innerText = Number(balance).toFixed(2);
+      try {
+        renderBalance(balance);
+      } catch (e) {
+        console.error('[fetchAndRender] renderBalance error:', e);
+      }
+    })
+    .withFailureHandler(err => {
+      console.error('[fetchAndRender] failed:', err);
+      showAccessDenied(err.message || err);
+    })
+    .getUserBalanceByToken(token);
+}
+
+/**
+ * 3) Fallback UI for bad tokens
+ */
+function showAccessDenied(msg) {
+  console.warn('[showAccessDenied]', msg);
+  document.body.innerHTML = `
+    <div style="padding:2rem; text-align:center; color:#c00;">
+      <h2>Access Denied</h2>
+      <p>${msg}</p>
+      <p><a href="index.html">← Back to login</a></p>
+    </div>`;
+}
