@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Senatus (active motions) feed",
+  "type": "object",
+  "required": ["motions"],
+  "properties": {
+    "motions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "proposer", "status"],
+        "properties": {
+          "title": { "type": "string" },
+          "proposer": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["rogata", "secundata", "discessio", "confirmata", "reiecta"],
+            "description": "rogata=proposed, secundata=seconded, discessio=voting, confirmata=passed, reiecta=rejected"
+          }
+        }
+      }
+    }
+  }
+}

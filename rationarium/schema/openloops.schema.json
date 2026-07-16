@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Aedilis (Aedile open loops) feed",
+  "type": "object",
+  "required": ["open", "overdue", "threads"],
+  "properties": {
+    "open": { "type": "integer" },
+    "overdue": { "type": "integer" },
+    "threads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["subject", "opened", "nextCheck", "status"],
+        "properties": {
+          "subject": { "type": "string" },
+          "opened": { "type": "string", "format": "date" },
+          "nextCheck": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["overdue", "due-soon", "on-track"] }
+        }
+      }
+    }
+  }
+}

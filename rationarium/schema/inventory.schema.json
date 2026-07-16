@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Horreum (inventory storehouse) feed",
+  "type": "object",
+  "required": ["totalItems", "containers", "attention"],
+  "properties": {
+    "totalItems": { "type": "integer" },
+    "containers": { "type": "integer", "description": "Distinct top-level containers/parents in the ID/ParentID graph" },
+    "attention": {
+      "type": "array",
+      "description": "Items worth a director's look",
+      "items": {
+        "type": "object",
+        "required": ["item", "container", "qty", "status"],
+        "properties": {
+          "item": { "type": "string" },
+          "container": { "type": "string", "description": "Parent object's display name" },
+          "qty": { "type": "integer" },
+          "status": { "type": "string", "enum": ["low", "missing", "flagged", "good"] },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

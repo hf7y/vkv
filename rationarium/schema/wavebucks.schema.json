@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Aerarium (Wavebucks treasury) feed",
+  "type": "object",
+  "required": ["totalCirculating", "activeAccounts", "netFlow7d", "dailyNetFlow", "attention"],
+  "properties": {
+    "totalCirculating": { "type": "number", "description": "Sum of all account balances" },
+    "activeAccounts": { "type": "integer" },
+    "netFlow7d": { "type": "number", "description": "Sum of Transactions/Log amounts over the trailing 7 days" },
+    "dailyNetFlow": {
+      "type": "array",
+      "description": "Net credited minus debited per day, oldest first. Length sets the chart's day count (14 in the sample).",
+      "items": { "type": "number" }
+    },
+    "attention": {
+      "type": "array",
+      "description": "Accounts worth a director's look — e.g. negative balance, long inactivity",
+      "items": {
+        "type": "object",
+        "required": ["who", "balance", "lastActivity"],
+        "properties": {
+          "who": { "type": "string", "description": "Display handle, not necessarily an email" },
+          "balance": { "type": "number" },
+          "lastActivity": { "type": "string", "format": "date" },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

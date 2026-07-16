@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Porta (gateway access log) feed",
+  "type": "object",
+  "required": ["attemptsToday", "deniedToday", "recent"],
+  "properties": {
+    "attemptsToday": { "type": "integer" },
+    "deniedToday": { "type": "integer" },
+    "recent": {
+      "type": "array",
+      "description": "Most recent access events, newest first",
+      "items": {
+        "type": "object",
+        "required": ["time", "who", "result"],
+        "properties": {
+          "time": { "type": "string", "description": "HH:MM, local to the gate" },
+          "who": { "type": "string" },
+          "result": { "type": "string", "enum": ["allowed", "denied"] },
+          "reason": { "type": "string", "description": "Empty string when allowed" }
+        }
+      }
+    }
+  }
+}
