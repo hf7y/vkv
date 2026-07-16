@@ -10,28 +10,30 @@ This directory contains all of the server‑side Google Apps Script code for the
 
 **Responsibilities:**
 
-- \`\`: Entry point for the Web App.
+- `doGet(e)`: Entry point for the Web App.
 
   - `?format=json&token=XYZ` → returns JSON `{valid, record}`
   - `?token=XYZ`          → serves `success.html` or `denied.html`
   - no parameters         → serves `gateway.html`
 
-- \`\`
+- `sendAccessEmail(email, targetSite)`
 
   - Generates a token via `generateToken`
   - Stores it with `storeToken`
   - Emails the magic link to the user
 
-- \`\`
+- `validateTagToken(token)`
 
   - Checks for token existence in the sheet
   - Returns `true` or throws an error
 
-- \`\`
+- `getEmailFromToken(token)`
 
   - Retrieves the email associated with a valid token via `lookupToken`
 
 - **Internal helper**: `lookupToken(token)` (inlined or delegated) to fetch full row metadata.
+
+> **Note:** `Code.gs` defines its own `lookupToken()` and `sendAccessEmail()`, which duplicate functions of the same name in `tokenUtils.gs` and `emailSender.gs` respectively (see **Known Issues** in the top-level `README.md`). Apps Script merges all `.gs` files into one global scope, so only one definition of each actually runs.
 
 ### 2. `tokenUtils.gs`
 

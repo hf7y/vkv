@@ -38,21 +38,29 @@ Contains all client‑side HTML and fragment files for the Tokenized Access Gate
 
 ### 4. `success.html`
 - **Purpose:** Displayed when a valid token is provided.
-- **Structure:**
+- **Intended structure** (not yet implemented — see below):
   - `<style><?!= include('visual') ?></style>`
   - Placeholder for “Access Granted” sprite:
     ```html
     <img src="../assets/sprites/guard_after.png" alt="Access Granted">
     ```
+- **⚠️ Current state:** this file's entire content is literally the text
+  `success.html` — no real markup. See **Known Issues** in the top-level
+  `README.md` for details, including a caveat about `<?!= include(...) ?>`
+  not being evaluated in this file under the current `doGet()` call
+  (`createHtmlOutputFromFile`, not `createTemplateFromFile(...).evaluate()`).
 
 ### 5. `denied.html`
 - **Purpose:** Displayed when an invalid or expired token is detected.
-- **Structure:**
+- **Intended structure** (not yet implemented — see below):
   - `<style><?!= include('visual') ?></style>`
   - Placeholder for “Access Denied” sprite:
     ```html
     <img src="../assets/sprites/guard_before.png" alt="Access Denied">
     ```
+- **⚠️ Current state:** same issue as `success.html` — this file's entire
+  content is literally the text `denied.html`. See **Known Issues** in the
+  top-level `README.md`.
 
 ---
 
