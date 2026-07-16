@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.disabled = false;
         google.script.run.logEvent('EmailError', email, error.toString());
       })
-      .sendAccessEmail(email, GATEWAY_URL); // GATEWAY_URL in sheetConfig.gs
+      .sendAccessEmail(email, gatewayURL); // gatewayURL is templated into gateway.html from sheetConfig.gs
 
     emailInput.value = "";
   });

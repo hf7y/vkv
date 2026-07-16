@@ -62,7 +62,7 @@ function doGet(e) {
 
   // No token → show email‑request gateway
   const tpl = HtmlService.createTemplateFromFile('gateway');
-  tpl.gatewayURL = GATEWAY_URL;
+  tpl.gatewayURL = gatewayURL;
   return tpl.evaluate().setTitle('TAG – Access Gateway');
 }
 
