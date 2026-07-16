@@ -1,0 +1,33 @@
+#!/bin/bash
+STDIN=$(cat)
+target=""
+for f in *.wav; do
+	if [[ $f == *$STDIN* ]];
+	then
+		target=$f
+		break
+	elif  [[ $STDIN > ${f%.wav} ]];
+	then
+		target=$f
+	fi
+done
+aplay $target
+
+
+#00001
+#00011
+#00101
+#00111
+#01001
+#01011
+#01101
+#01111
+#10001
+#10011
+#10101
+#10111
+#11001
+#11011
+#11101
+#11111
+
