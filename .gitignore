@@ -1,1 +1,28 @@
+# design sources / editor / build cruft
 *.xcf
+*/sheetConfig.gs
+*.sublime-workspace
+
+# secrets & TLS material — never commit
+*.pem
+*.key
+*.p12
+
+# runtime logs / process output
+*.log
+*.out
+
+# python / node local envs
+.venv/
+__pycache__/
+node_modules/
+
+# local Claude Code state
+inv/.claude/
+
+# superseded old inventory prototype (kept on disk, not tracked; live app is inv/inventory-app)
+inv/inventory/
+
+# inv/7069: nested repo whose GitHub remote (hf7y/7069) does not exist yet;
+# left on disk, not wired as a submodule until the remote is created + pushed
+inv/7069/

@@ -1,0 +1,21 @@
+[submodule "wavebucks"]
+	path = wavebucks
+	url = git@github.com:media-arts-collective/wavebucks.git
+[submodule "nomac.org"]
+	path = nomac.org
+	url = git@github.com:media-arts-collective/nomac.org.git
+[submodule "vibe-kiosk"]
+	path = vibe-kiosk
+	url = git@github.com:hf7y/vibe-kiosk.git
+[submodule "inv/inventory-app"]
+	path = inv/inventory-app
+	url = git@github.com:media-arts-collective/inventory-app.git
+[submodule "inv/inv-redirects"]
+	path = inv/inv-redirects
+	url = git@github.com:hf7y/inv-redirects.git
+[submodule "Code Dumpster/CodeDumpster"]
+	path = Code Dumpster/CodeDumpster
+	url = git@github.com:media-arts-collective/CodeDumpster.git
+[submodule "Smart Cities Build/pi-files"]
+	path = Smart Cities Build/pi-files
+	url = git@github.com:hf7y/vkv23.git

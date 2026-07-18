@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanScript</title>
+<style>
+  body { font-family: monospace; margin: 16px; max-width: 640px; }
+  pre  { white-space: pre-wrap; word-break: break-all; margin: 4px 0; border: 1px solid #ccc; padding: 6px; min-height: 48px; background: #fafafa; }
+  input[type=text] { font-family: monospace; font-size: 14px; width: calc(100% - 90px); padding: 4px; }
+  canvas { display: block; margin-top: 8px; }
+  #camera-wrap { position: relative; width: 100%; aspect-ratio: 1/1; background: #000; overflow: hidden; margin-bottom: 8px; }
+  #video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #reticle { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+  .r { width: 55%; height: 55%; position: relative; }
+  .r::before, .r::after, .r .rb, .r .rc { content: ''; position: absolute; width: 18px; height: 18px; border-color: #fff; border-style: solid; opacity: 0.85; }
+  .r::before { top:0; left:0;  border-width: 2px 0 0 2px; }
+  .r::after  { top:0; right:0; border-width: 2px 2px 0 0; }
+  .r .rb     { bottom:0; right:0; border-width: 0 2px 2px 0; }
+  .r .rc     { bottom:0; left:0;  border-width: 0 0 2px 2px; }
+  #log { font-size: 11px; color: #666; max-height: 100px; overflow-y: auto; border-top: 1px solid #ccc; margin-top: 8px; padding-top: 4px; }
+  label { font-size: 12px; }
+  #confirm-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:1000; }
+  #confirm-modal .box { background:#fff; border-radius:6px; padding:20px; max-width:280px; text-align:center; font-family:monospace; }
+  #confirm-modal .box button { font-size:16px; padding:8px 20px; margin:12px 8px 0; }
+</style>
+</head>
+<body>
+
+<b>ScanScript</b> — <span id="bt-status">printer not connected</span> — <button onclick="toggleBT()" id="bt-btn">Connect Printer</button>
+<br><br>
+
+<div id="camera-wrap">
+  <video id="video" autoplay playsinline muted></video>
+  <div id="reticle"><div class="r"><div class="rb"></div><div class="rc"></div></div></div>
+</div>
+
+<div id="last-seen" style="font-size:12px;min-height:16px;margin-bottom:4px;"></div>
+
+<b>Stack:</b>
+<pre id="stack-display">—</pre>
+
+<input type="text" id="push-input" placeholder="type ID and press Enter to push…" onkeydown="onPushKey(event)">
+<button onclick="manualClose()">Print</button>
+<button onclick="undoLast()">Undo</button>
+<button onclick="clearStack()">Clear</button>
+<br>
+<label><input type="checkbox" id="confirm-print" onchange="savePrefs()"> confirm before print</label>
+<br>
+<label><input type="checkbox" id="print-context" onchange="savePrefs()"> print context on label</label>
+<br><br>
+
+<b>Last closure:</b>
+<pre id="closure">—</pre>
+<b>Payload:</b>
+<pre id="url-display">—</pre>
+<canvas id="qr-canvas"></canvas>
+
+<pre id="log"></pre>
+
+<div id="confirm-modal">
+  <div class="box">
+    <div id="confirm-modal-msg"></div>
+    <div>
+      <button id="confirm-modal-yes">Print</button>
+      <button id="confirm-modal-no">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+
+// ── Config ────────────────────────────────────────────────────────────────
+const URL_PREFIX  = 'https://192.168.0.27:3000/#';
+const URL_HOST    = '192.168.0.27:3000';
+const QR_PX       = 400;
+const SVC         = '0000ff00-0000-1000-8000-00805f9b34fb';
+const CHAR_UUID   = '0000ff02-0000-1000-8000-00805f9b34fb';
+
+// ── State ─────────────────────────────────────────────────────────────────
+let btChar      = null;
+let btDevice    = null;
+let anchor      = null;
+let priorState  = [];   // children from opening label scan
+let session     = [];   // nodes pushed this session
+let history     = [];   // undo stack: [{anchor, priorState, session}]
+let lastScanId  = null; // for trivial double-scan detection
+
+// ── Prefs ─────────────────────────────────────────────────────────────────
+function loadPrefs() {
+  const confirmPref = localStorage.getItem('ss:confirm') === 'true';
+  document.getElementById('confirm-print').checked = confirmPref;
+  const contextPref = localStorage.getItem('ss:context') === 'true';
+  document.getElementById('print-context').checked = contextPref;
+}
+function savePrefs() {
+  localStorage.setItem('ss:confirm', document.getElementById('confirm-print').checked);
+  localStorage.setItem('ss:context', document.getElementById('print-context').checked);
+}
+
+// ── Confirm modal (native confirm() is unreliable when triggered from a
+//    scan event rather than a click — many mobile browsers silently
+//    suppress it for lack of a user gesture) ────────────────────────────────
+function askConfirm(message) {
+  return new Promise(resolve => {
+    const modal = document.getElementById('confirm-modal');
+    document.getElementById('confirm-modal-msg').textContent = message;
+    modal.style.display = 'flex';
+    const yes = document.getElementById('confirm-modal-yes');
+    const no  = document.getElementById('confirm-modal-no');
+    const done = result => { modal.style.display='none'; yes.onclick=null; no.onclick=null; resolve(result); };
+    yes.onclick = () => done(true);
+    no.onclick  = () => done(false);
+  });
+}
+
+// ── Log ───────────────────────────────────────────────────────────────────
+function log(msg) {
+  const el = document.getElementById('log');
+  el.textContent = new Date().toLocaleTimeString('en-US',{hour12:false}) + ' ' + msg + '\n' + el.textContent;
+}
+
+async function logToServer(line) {
+  try { await fetch('/log', { method:'POST', body: line }); } catch(_) {}
+}
+
+// ── localStorage cache ────────────────────────────────────────────────────
+function cacheGet(id) {
+  try { return JSON.parse(localStorage.getItem('ss:' + id)); } catch(_) { return null; }
+}
+function cacheSet(id, tree) {
+  try { localStorage.setItem('ss:' + id, JSON.stringify(tree)); } catch(_) {}
+}
+
+// ── Parser ────────────────────────────────────────────────────────────────
+function parse(str) {
+  str = str.trim();
+  // bare atom (no parens)
+  if (!str.includes('(') && !str.includes(')')) {
+    return [str.toUpperCase()];
+  }
+  // wrap if not already wrapped
+  if (!str.startsWith('(')) str = '(' + str + ')';
+  const tokens = str.replace(/\(/g,' ( ').replace(/\)/g,' ) ').split(/\s+/).filter(Boolean);
+  const root = []; const stk = [root];
+  for (const t of tokens) {
+    if (t==='(') { const l=[]; stk[stk.length-1].push(l); stk.push(l); }
+    else if (t===')') { stk.pop(); }
+    else stk[stk.length-1].push(t.toUpperCase());
+  }
+  if (root.length===1 && Array.isArray(root[0])) return root[0];
+  return root;
+}
+
+function serialize(node) {
+  if (!Array.isArray(node)) return node;
+  return '(' + node.map(serialize).join(' ') + ')';
+}
+
+function head(node) { return Array.isArray(node) ? node[0] : node; }
+
+// ── Horstmann pretty print ────────────────────────────────────────────────
+function pretty(node, indent, width) {
+  indent = indent||0; width = width||72;
+  if (!Array.isArray(node)) return node;
+  if (node.length===0) return '()';
+  const flat = serialize(node);
+  if (indent + flat.length <= width) return flat;
+  const h = Array.isArray(node[0]) ? pretty(node[0], indent+1, width) : node[0];
+  const childIndent = indent + 1 + h.length + 1;
+  const pad = ' '.repeat(childIndent);
+  const parts = node.slice(1).map((child,i) => {
+    const r = pretty(child, childIndent, width);
+    return i===0 ? r : pad + r;
+  });
+  return '(' + h + (parts.length ? ' ' + parts.join('\n') : '') + ')';
+}
+
+// ── Merge / dedup (rightmost wins) ───────────────────────────────────────
+function merge(prior, sess) {
+  const seq=[...prior,...sess], seen=new Set(), result=[];
+  for (let i=seq.length-1;i>=0;i--) {
+    const h=head(seq[i]);
+    if (!seen.has(h)) { seen.add(h); result.unshift(seq[i]); }
+  }
+  return result;
+}
+
+// ── Stack display ─────────────────────────────────────────────────────────
+function renderStack() {
+  const children = merge(priorState, session);
+  const tree     = anchor ? [anchor, ...children] : children;
+  const depth    = children.length;
+  // show pretty print of current stack + hint where next push goes
+  let display = tree.length > 0 ? pretty(tree) : '—';
+  // append a visual hint for the input
+  if (anchor) display += '\n  ▸ (type ID to push here)';
+  document.getElementById('stack-display').textContent = display;
+}
+
+// ── Last-seen banner ──────────────────────────────────────────────────────
+function showLastSeen(id) {
+  const cached = cacheGet(id);
+  const el = document.getElementById('last-seen');
+  if (!cached) { el.textContent=''; return; }
+  const s = serialize(cached);
+  el.innerHTML = 'last seen: <code>' + s.slice(0,80)+(s.length>80?'…':'')+'</code> '
+    + '<button onclick="useCached()">use</button>';
+  el._cached = cached;
+}
+function useCached() {
+  const el=document.getElementById('last-seen'), cached=el._cached;
+  if (!cached||!Array.isArray(cached)) return;
+  priorState = merge(cached.slice(1), priorState);
+  renderStack(); log('Loaded cache for '+head(cached));
+  el.textContent='';
+}
+
+// ── Undo ──────────────────────────────────────────────────────────────────
+function saveHistory() {
+  history.push({ anchor, priorState:[...priorState], session:[...session] });
+  if (history.length > 20) history.shift();
+}
+function undoLast() {
+  if (!history.length) { log('Nothing to undo'); return; }
+  const prev = history.pop();
+  anchor=prev.anchor; priorState=prev.priorState; session=prev.session;
+  renderStack(); log('Undo');
+}
+
+// ── Manual push via input ─────────────────────────────────────────────────
+// Typed codes (unlike scanned ones) have no physical label yet, so every
+// typed entry other than the closing retype gets its own label printed.
+function onPushKey(e) {
+  if (e.key !== 'Enter') return;
+  const val = document.getElementById('push-input').value.trim().toUpperCase();
+  if (!val) return;
+  document.getElementById('push-input').value = '';
+  const node = val.startsWith('(') ? parse(val) : val;
+
+  if (anchor && head(node) === anchor) {
+    // retyping the open entity's own code closes and prints it
+    const children = Array.isArray(node) ? node.slice(1) : [];
+    priorState = merge(priorState, children);
+    doClose();
+    return;
+  }
+
+  pushNode(node);
+  printTypedLabel(node);
+}
+
+function pushNode(node) {
+  saveHistory();
+  if (!anchor) {
+    anchor = head(node);
+    priorState = Array.isArray(node) ? node.slice(1) : [];
+    session = [];
+    showLastSeen(anchor);
+  } else {
+    session.push(node);
+  }
+  renderStack();
+  log('PUSH: ' + serialize(Array.isArray(node) ? node : [node]));
+}
+
+async function printTypedLabel(node) {
+  const single  = Array.isArray(node) ? node : [node];
+  const labelId = head(single);
+  const scheme  = serialize(single);
+  const payload = URL_PREFIX + scheme;
+  const tsHuman = new Date().toLocaleString('en-US',{hour12:false});
+
+  const printContext = document.getElementById('print-context').checked ? single : null;
+  renderQRCanvas(payload, labelId, tsHuman, printContext);
+
+  const doPrint = !document.getElementById('confirm-print').checked ||
+    await askConfirm('Print label for ' + labelId + '?');
+
+  if (doPrint) {
+    if (btChar) await sendPrint(payload, labelId, tsHuman, printContext);
+    else log('No printer — QR on screen only');
+  }
+  log('LABEL: ' + scheme);
+}
+
+// ── Closure ───────────────────────────────────────────────────────────────
+async function doClose() {
+  if (!anchor && session.length===0) { log('Nothing to close'); return; }
+
+  const ts       = ['T', Date.now().toString(36).slice(-4).toUpperCase()];
+  const children = merge(priorState, [...session, ts]);
+  const tree     = anchor ? [anchor, ...children] : children;
+  const scheme   = serialize(tree);
+  const payload  = URL_PREFIX + scheme;
+  const tsHuman  = new Date().toLocaleString('en-US',{hour12:false});
+
+  document.getElementById('closure').textContent    = pretty(tree);
+  document.getElementById('url-display').textContent = payload;
+
+  if (anchor) cacheSet(anchor, tree);
+  const printContext = document.getElementById('print-context').checked ? tree : null;
+  renderQRCanvas(payload, anchor||head(tree), tsHuman, printContext);
+
+  const doPrint = !document.getElementById('confirm-print').checked ||
+    await askConfirm('Print label for ' + (anchor||'?') + '?');
+
+  if (doPrint) {
+    if (btChar) await sendPrint(payload, anchor||head(tree), tsHuman, printContext);
+    else log('No printer — QR on screen only');
+  }
+
+  logToServer(scheme);
+  log('CLOSE: ' + scheme);
+
+  anchor=null; priorState=[]; session=[]; history=[];
+  lastScanId=null;
+  renderStack();
+  document.getElementById('last-seen').textContent='';
+}
+
+function manualClose() { doClose(); }
+
+function clearStack() {
+  saveHistory();
+  anchor=null; priorState=[]; session=[];
+  lastScanId=null;
+  renderStack();
+  document.getElementById('last-seen').textContent='';
+  log('Cleared');
+}
+
+// ── Scanner ───────────────────────────────────────────────────────────────
+function isScanScriptQR(raw) {
+  // accept: full URL with our host, bare scheme expr, bare atom
+  if (raw.includes(URL_HOST)) return true;
+  if (raw.startsWith('(')) return true;
+  // bare alphanumeric (no spaces, no special chars except - _)
+  if (/^[A-Z0-9_\-]+$/i.test(raw.trim())) return true;
+  return false;
+}
+
+function extractPayload(raw) {
+  let str = raw.trim();
+  if (str.includes('#')) str = str.split('#').slice(1).join('#');
+  return str;
+}
+
+function onScan(raw) {
+  if (!isScanScriptQR(raw)) { log('SKIP (not ScanScript): ' + raw.slice(0,30)); return; }
+
+  const str  = extractPayload(raw);
+  const tree = parse(str);
+  if (!tree||tree.length===0) { log('Parse failed'); return; }
+
+  const scannedHead     = Array.isArray(tree[0]) ? tree[0][0] : tree[0];
+  const scannedChildren = tree.slice(1);
+
+  // trivial double-scan: same ID, nothing pushed in between
+  if (scannedHead === lastScanId && session.length === 0 && priorState.length === 0) {
+    log('SKIP trivial double-scan: ' + scannedHead);
+    return;
+  }
+
+  lastScanId = scannedHead;
+  log('SCAN: ' + str.slice(0,60));
+
+  if (!anchor) {
+    saveHistory();
+    anchor     = scannedHead;
+    priorState = scannedChildren;
+    session    = [];
+    showLastSeen(scannedHead);
+    renderStack();
+    log('OPEN: ' + scannedHead);
+  } else if (scannedHead === anchor) {
+    // re-scan of anchor = closure
+    // but only if something is actually in session or prior (non-trivial)
+    if (session.length === 0 && priorState.length === 0) {
+      log('SKIP trivial re-scan of empty context');
+      return;
+    }
+    priorState = merge(priorState, scannedChildren);
+    doClose();
+  } else {
+    // push whole tree as a node
+    saveHistory();
+    const node = scannedChildren.length > 0 ? tree : scannedHead;
+    session.push(node);
+    renderStack();
+    log('PUSH: ' + serialize(Array.isArray(node)?node:[node]));
+  }
+}
+
+async function startCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode:'environment', width:{ideal:1280}, height:{ideal:1280} }
+    });
+    document.getElementById('video').srcObject = stream;
+    log('Camera ready'); startScanning();
+  } catch(e) { log('Camera error: '+e.message); }
+}
+
+function startScanning() {
+  if (!('BarcodeDetector' in window)) { log('BarcodeDetector not supported'); return; }
+  const detector    = new BarcodeDetector({ formats:['qr_code'] });
+  const video       = document.getElementById('video');
+  const ABSENCE_MS  = 300; // how long a tag must be out of frame before it can re-trigger
+  let presentRaw    = null; // tag currently held in front of the camera (fires once on arrival)
+  let lastSeenAt    = 0;
+
+  async function tick() {
+    try {
+      const codes = await detector.detect(video);
+      const val = codes.length > 0 ? codes[0].rawValue : null;
+
+      if (val) {
+        lastSeenAt = performance.now();
+        if (val !== presentRaw) {
+          presentRaw = val;
+          onScan(val);
+        }
+      } else if (presentRaw && performance.now() - lastSeenAt > ABSENCE_MS) {
+        presentRaw = null; // tag has actually left frame — arm for its next appearance
+      }
+    } catch(_) {}
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  log('Scanner active');
+}
+
+// ── QR + label canvas ─────────────────────────────────────────────────────
+function wrapContext(ctx, contextTree, maxWidth) {
+  const charW    = ctx.measureText('0').width;
+  const maxChars = Math.max(8, Math.floor(maxWidth / charW));
+  return pretty(contextTree, 0, maxChars).split('\n');
+}
+
+function buildQRCanvas(text, labelId, tsHuman, targetCanvas, contextTree) {
+  const qr = qrcode(0,'M');
+  qr.addData(text); qr.make();
+
+  const modules   = qr.getModuleCount();
+  const cell      = Math.max(3, Math.floor(QR_PX/(modules+8)));
+  const quiet     = cell*4;
+  const qrSize    = modules*cell+quiet*2;
+  const idLineH   = 24;
+  const tsLineH   = 22;
+  const ctxLineH  = 15;
+  const pad       = 6;
+
+  const ctxProbe = targetCanvas.getContext('2d');
+  ctxProbe.font = ctxLineH-3+'px monospace';
+  const contextLines = contextTree ? wrapContext(ctxProbe, contextTree, qrSize-pad*2) : [];
+
+  const extraH  = (labelId?idLineH+pad:0) + (tsHuman?tsLineH:0)
+    + (contextLines.length ? pad + contextLines.length*ctxLineH : 0)
+    + (labelId||tsHuman?pad:0);
+  const totalH  = qrSize + extraH;
+
+  targetCanvas.width  = qrSize;
+  targetCanvas.height = totalH;
+  const ctx = targetCanvas.getContext('2d');
+
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,qrSize,totalH);
+  ctx.fillStyle='#000';
+
+  for (let r=0;r<modules;r++)
+    for (let c=0;c<modules;c++)
+      if (qr.isDark(r,c))
+        ctx.fillRect(quiet+c*cell,quiet+r*cell,cell,cell);
+
+  ctx.textAlign='center';
+  let y = qrSize + pad + idLineH;
+  if (labelId) {
+    ctx.font = 'bold '+idLineH+'px monospace';
+    ctx.fillText(labelId, qrSize/2, y);
+    y += tsLineH;
+  }
+  if (tsHuman) {
+    ctx.font = 'bold '+tsLineH+'px monospace';
+    ctx.fillText(tsHuman, qrSize/2, y);
+  }
+  if (contextLines.length) {
+    y += pad;
+    ctx.textAlign='left';
+    ctx.font = ctxLineH-3+'px monospace';
+    for (const line of contextLines) {
+      y += ctxLineH;
+      ctx.fillText(line, pad, y);
+    }
+  }
+  return { qrSize, totalH, cell };
+}
+
+function renderQRCanvas(text, labelId, tsHuman, contextTree) {
+  const info = buildQRCanvas(text, labelId, tsHuman, document.getElementById('qr-canvas'), contextTree);
+  log('QR: '+info.qrSize+'px '+info.cell+'px/module');
+}
+
+// ── Print ─────────────────────────────────────────────────────────────────
+function canvasToBitmap(canvas) {
+  const { width, height } = canvas;
+  const ctx = canvas.getContext('2d');
+  const imgData = ctx.getImageData(0,0,width,height).data;
+  const bytesPerRow = Math.ceil(width/8);
+  const rows = [];
+  for (let y=0;y<height;y++) {
+    const row=new Uint8Array(bytesPerRow);
+    for (let x=0;x<width;x++) {
+      const i=(y*width+x)*4;
+      if (0.299*imgData[i]+0.587*imgData[i+1]+0.114*imgData[i+2]<128)
+        row[Math.floor(x/8)]|=(0x80>>(x%8));
+    }
+    rows.push(row);
+  }
+  return { rows, bytesPerRow };
+}
+
+function buildJob({ rows, bytesPerRow }) {
+  const out=[]; const push=(...b)=>out.push(new Uint8Array(b));
+  push(0x1b,0x40);
+  const xL=bytesPerRow&0xff,xH=(bytesPerRow>>8)&0xff;
+  const yL=rows.length&0xff,yH=(rows.length>>8)&0xff;
+  push(0x1d,0x76,0x30,0x00,xL,xH,yL,yH);
+  for (const r of rows) out.push(r);
+  push(0x1b,0x64,0x04);
+  const total=out.reduce((s,a)=>s+a.length,0);
+  const buf=new Uint8Array(total); let off=0;
+  for (const a of out){buf.set(a,off);off+=a.length;}
+  return buf;
+}
+
+async function sendPrint(payload, labelId, tsHuman, contextTree) {
+  try {
+    const offscreen = document.createElement('canvas');
+    buildQRCanvas(payload, labelId, tsHuman, offscreen, contextTree);
+    const bitmap = canvasToBitmap(offscreen);
+    const job    = buildJob(bitmap);
+    for (let i=0;i<job.length;i+=182) {
+      await btChar.writeValueWithoutResponse(job.slice(i,i+182));
+      await new Promise(r=>setTimeout(r,30));
+    }
+    log('Printed OK');
+  } catch(e) { log('Print error: '+e.message); }
+}
+
+// ── Bluetooth ─────────────────────────────────────────────────────────────
+async function toggleBT() {
+  if (btDevice) { btDevice.gatt.disconnect(); return; }
+  try {
+    btDevice = await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[SVC]});
+    btDevice.addEventListener('gattserverdisconnected',()=>{
+      btDevice=null;btChar=null;
+      document.getElementById('bt-status').textContent='printer not connected';
+      document.getElementById('bt-btn').textContent='Connect Printer';
+      log('Printer disconnected');
+    });
+    const server  = await btDevice.gatt.connect();
+    const service = await server.getPrimaryService(SVC).catch(async()=>{
+      (await server.getPrimaryServices()).forEach(s=>log('SVC: '+s.uuid));
+      throw new Error('service not found');
+    });
+    btChar = await service.getCharacteristic(CHAR_UUID);
+    document.getElementById('bt-status').textContent = btDevice.name||'connected';
+    document.getElementById('bt-btn').textContent    = 'Disconnect';
+    log('Printer: '+btDevice.name);
+  } catch(e) { log('BT: '+e.message); btDevice=null;btChar=null; }
+}
+
+// ── Boot: load from URL hash ──────────────────────────────────────────────
+function bootFromHash() {
+  const hash = window.location.hash.slice(1); // strip #
+  if (!hash) return;
+  log('Loading from URL: ' + hash.slice(0,60));
+  const tree = parse(decodeURIComponent(hash));
+  if (!tree||tree.length===0) return;
+  anchor     = Array.isArray(tree[0]) ? tree[0][0] : tree[0];
+  priorState = tree.slice(1);
+  session    = [];
+  showLastSeen(anchor);
+  renderStack();
+  log('Bootstrapped: ' + anchor);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+loadPrefs();
+startCamera();
+bootFromHash();
+renderStack();
+log('ScanScript ready');
+</script>
+</body>
+</html>
