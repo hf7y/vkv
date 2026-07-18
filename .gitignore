@@ -22,7 +22,3 @@ inv/.claude/
 
 # superseded old inventory prototype (kept on disk, not tracked; live app is inv/inventory-app)
 inv/inventory/
-
-# inv/7069: nested repo whose GitHub remote (hf7y/7069) does not exist yet;
-# left on disk, not wired as a submodule until the remote is created + pushed
-inv/7069/
