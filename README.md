@@ -19,7 +19,8 @@ this one just says what everything is and how the pieces relate.
 | `vibe-kiosk/` | Physical pipeline: scan a paper form → OMR → 4D vector → barcode label | Documented & cleaned up this pass |
 | `nomac.org/` | Media Arts Collective's public site (GitHub Pages) | Documented & bug-fixed this pass |
 | `Smart Cities Build/` | Legacy 2023 grab-bag: Drachma currency art, barcode/label templates, an older OMR/kiosk prototype (`pi-files/`) | Documented & deduplicated this pass |
-| `rationarium/` | **New**: a demo operator dashboard unifying status across the above | Built this pass — see below |
+| `Code Dumpster/` | Tyler's hardware/installation repo — the krewe's **live-show rigs**: laser harps (`VKV_LS_*` Teensy firmware), `hazer-control` (DMX hazer controller, vaporwave neon UI), plus infra (Packer/Hyper-V) | Submodule; laser-harp/hazer branch merged to `main` this pass |
+| `rationarium/` | **New**: a demo operator dashboard unifying status across the above (now incl. a `Machina` panel for the live-show rigs) | Built this pass — see below |
 | `_archive/` | Superseded snapshots of `wavebucks`/`scriba-senatus`, kept for reversibility | Consolidated this pass |
 | `tag/`, `wavebucks/aedile/`, etc. | Individual project docs | See each folder's own `README.md`/`CLAUDE.md` |
 
@@ -53,6 +54,13 @@ their pre-existing uncommitted state, to avoid colliding with it.
   reconciling into one project eventually.
 - **`nomac.org`** is the public face of the whole thing — the org's actual
   website.
+- **`Code Dumpster`** is Tyler's side of the same krewe: the *physical*
+  live-show installations the software ecosystem exists to support — the
+  `VKV_LS_*` laser-harp firmware and the `hazer-control` DMX rig (vaporwave
+  "neon sunset" UI, live-show panic button). It's the hardware counterpart
+  to Zach's software half; the two aren't duplicates, they're complementary
+  halves of the same event. `rationarium`'s `Machina` panel is where their
+  status shows up alongside the rest.
 - **`rationarium`** (new) sits on top of all of it: a read-only dashboard
   that would surface whatever each of these systems is already tracking,
   in one place, so a director isn't checking five separate tools to find

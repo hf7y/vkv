@@ -2,8 +2,9 @@
 
 A single page that answers "what needs a director's attention today?" across
 every Res Publica Vaporwave system — the Wavebucks treasury, the inventory
-storehouse, the gateway access log, Aedile's open loops, and active Senate
-motions. Open `index.html` in a browser. That's the whole install.
+storehouse, the gateway access log, Aedile's open loops, active Senate
+motions, and the live-show installations (laser harps, hazer control). Open
+`index.html` in a browser. That's the whole install.
 
 This is a **demo built on fictional sample data** — no real krewe member,
 balance, or event appears in it. It's meant to show the shape of a real
@@ -60,6 +61,7 @@ validate its output before wiring it in).
 | Porta (The Gate) | `schema/gate.schema.json` | `tag/src/tokenUtils.gs` — the token issue/verify log |
 | Aedilis (Open loops) | `schema/openloops.schema.json` | `wavebucks/aedile/OpenLoops.js` — the `OpenLoops` tab, near 1:1 already |
 | Senatus (Motions) | `schema/motions.schema.json` | `wavebucks/scribaSenatus/` — `Commissiones.js`/`Causae.js` |
+| Machina (Installations) | `schema/machina.schema.json` | `Code Dumpster/CodeDumpster` — the laser-harp firmware + `src/hazer-control` live-show rigs (would need a per-rig heartbeat) |
 
 ### Wiring in real data (not done here, but this is the shape of it)
 

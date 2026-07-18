@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rationarium: Machina (live-show installations) feed",
+  "type": "object",
+  "required": ["installations", "needAttention", "rigs"],
+  "properties": {
+    "installations": { "type": "integer" },
+    "needAttention": { "type": "integer" },
+    "rigs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "system", "lastCheck", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "system": { "type": "string" },
+          "lastCheck": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["up", "needs-cal", "down", "untested"] },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}
